@@ -32,8 +32,8 @@ void MyTcpServer::slotServerRead()
     while(mTcpSocket->bytesAvailable()>0)
     {
         QByteArray array = mTcpSocket->readAll(); // data that is received throw tcp/ip
-        //std::cout << array.data();
-        qDebug() << array.data();
+        lastReceivedData = array;
+        //qDebug() << array.data();
         mTcpSocket->write("OK!\r\n"); // send back "OK!"
     }
 }
@@ -43,11 +43,7 @@ void MyTcpServer::slotClientDisconnected()
     mTcpSocket->close();
 }
 
-QString MyTcpServer::lastData()//add
+QByteArray MyTcpServer::getLastData()//add
 {
-    QString strLastData;
-
-    // add QByte convert to QString
-
-    return strLastData;
+    return lastReceivedData;
 }

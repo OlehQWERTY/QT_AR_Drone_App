@@ -13,7 +13,8 @@ HEADERS += \
     Models/OnlineData/GeoCoordinates.h \
     Models/OnlineData/OnlineData.h \
     Models/OnlineData/TcpIpServer.h \
-    Views/widget/widget.h
+    Views/widget/widget.h \
+    Controllers/MainController/MainController.h
 
 SOURCES += \
     Models/GeoMap/GeoMap.cpp \
@@ -22,4 +23,5 @@ SOURCES += \
     Models/OnlineData/OnlineData.cpp \
     Models/OnlineData/TcpIpServer.cpp \
     Views/widget/widget.cpp \
-    main.cpp
+    main.cpp \
+    Controllers/MainController/MainController.cpp

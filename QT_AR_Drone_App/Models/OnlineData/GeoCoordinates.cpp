@@ -1,5 +1,10 @@
 #include "GeoCoordinates.h"
 
+GeoCoordinates::GeoCoordinates() // it was added because of next level is wrapper
+{
+    pGeoPoint = new GeoPointValues;
+}
+
 GeoCoordinates::GeoCoordinates(double outZeroDegLatitude, double outZeroDegLongitude)
 {
     setZeroGeoPoint(outZeroDegLatitude, outZeroDegLongitude);
@@ -34,7 +39,7 @@ double GeoCoordinates::geoPointToCartesian(double outGeoValue) // outGeoValue - 
     return (PI * outGeoValue * R)/180 - approxCartesianVal;
 }
 
-QString GeoCoordinates::readFromFile(QString outFileName = "odometry.txt")
+QString GeoCoordinates::readFromFile(QString outFileName = "/home/oleg/catkin_ws/src/test1/src/odometryData.txt")
 {
     QString fileName = outFileName;
     QFile inputFile(fileName);
@@ -53,9 +58,10 @@ QString GeoCoordinates::readFromFile(QString outFileName = "odometry.txt")
 
 void GeoCoordinates::parseOdometry(QString line)
 {
-    odometryX = line.section(',', 0, 0).toDouble(); // return one field separated by ','
-    odometryY = line.section(',', 1, 1).toDouble();
-    odometryZ = line.section(',', 2, 2).toDouble();
+    odometryTime = line.section(',', 0, 0).toInt(); // return one field separated by ','
+    odometryX = line.section(',', 1, 1).toDouble();
+    odometryY = line.section(',', 2, 2).toDouble();
+    odometryZ = line.section(',', 3, 3).toDouble();
 }
 
 GeoPointValues *GeoCoordinates::odometryToGeo()
