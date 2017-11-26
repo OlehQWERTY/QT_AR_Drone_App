@@ -1,0 +1,43 @@
+#ifndef GEOCOORDINATES_H
+#define GEOCOORDINATES_H
+
+#include <iostream>
+using namespace std;
+
+#include <QFile>
+#include <QTextStream>
+#include <QString>
+#include <QDebug>
+
+#include "../GeoPoint/GeoPointValues.h"
+#include "TcpIpServer.h"
+
+class GeoCoordinates
+{
+private:
+    const double PI = 3.14159265358979;
+    const double R = 6371000.0;
+    double zeroDegLatitude = 0;
+    double zeroDegLongitude = 0;
+
+    double odometryX = 0;
+    double odometryY = 0;
+    double odometryZ = 0;
+
+    GeoPointValues *pGeoPoint = NULL;
+
+    void setZeroGeoPoint(double, double);
+    double cartesianPointToGeo(double, double);
+    double geoPointToCartesian(double); // I don't use it. Additional func! It is for providing GeoCoordinatesToCartesian functionality
+    QString readFromFile(QString);
+    void parseOdometry(QString);
+public:
+    GeoCoordinates(double, double);
+    ~GeoCoordinates();
+    GeoPointValues *odometryToGeo();
+    GeoPointValues *cartesianCoordinatesToGeo(double, double); // !!!!! I don't use it and it doesn't return cartesian X Y Z !!!!!
+    //void GeoCoordinatesToCartesian(double, double); // I don't use it. Additional func! As returned type it neeads spec struct.
+    // or input values pointer can be as returned type
+};
+
+#endif // GEOCOORDINATES_H
