@@ -43,6 +43,7 @@ GeoPointValues *OnlineData::getOnlineData()
         unsigned char sensorVal = realSensorValToUChar(tempSensorVal); // correct according to sensor type
         sensorValToColor(sensorVal);
     }
+
     return pGeoPoint;
 }
 
