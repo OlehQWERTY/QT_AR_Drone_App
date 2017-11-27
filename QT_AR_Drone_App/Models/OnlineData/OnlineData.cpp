@@ -35,8 +35,9 @@ GeoPointValues *OnlineData::getOnlineData()
 {
     pGeoPoint = GeoCoord.odometryToGeo();
 
+    // tcp ip part
     // color val (char[3])
-    bool ok = true;
+    bool ok = true; // test code belong
     int tempSensorVal = TcpServer.getLastData().toInt(&ok);
     if(ok)
     {

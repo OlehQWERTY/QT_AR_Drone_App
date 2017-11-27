@@ -10,7 +10,7 @@ using namespace std;
 #include <QDebug>
 
 #include "../GeoPoint/GeoPointValues.h"
-#include "TcpIpServer.h"
+//#include "TcpIpServer.h"
 
 class GeoCoordinates
 {

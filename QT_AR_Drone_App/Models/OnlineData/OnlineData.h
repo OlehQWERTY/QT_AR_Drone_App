@@ -14,7 +14,7 @@ class OnlineData
 private:
     // wrapped classes
     GeoCoordinates GeoCoord;
-    MyTcpServer TcpServer;
+    MyTcpServer TcpServer; // TCP IP
 
     // struct with PoinValues
     GeoPointValues *pGeoPoint = NULL;

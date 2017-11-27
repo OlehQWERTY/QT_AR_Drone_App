@@ -278,7 +278,7 @@ void GeoMap::saveToFile(bool geo) // if true - save to geo as Js func, else - or
     QFile F(tempFilePath);
     if(!F.open(QIODevice::WriteOnly))
     {
-        qDebug() << "Error! Can't open file!";
+        qDebug() << "Error! Can't open file!" << tempFilePath;
     }
 
     QJsonDocument jsdoc(JsonObject); // renew jsdoc with new JsonObject

@@ -1,7 +1,7 @@
 #include "TcpIpServer.h"
 
 #include <QDebug>
-#include <QCoreApplication>
+//#include <QCoreApplication>
 
 MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
 {

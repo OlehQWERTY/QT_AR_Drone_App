@@ -173,7 +173,7 @@ void Widget::screenInfo()
     qglColor(halfWhite); // set soft White color
     renderText(10, vertTextPos + 60, "scale: ");
     //QString convertToNormalScaleForShowing = QString::number(scale);
-    renderText(60, vertTextPos + 60, QString::number(scale/* * 1.66666666666666666666666*/)); // if scale = default (0.6) it creates it to 0.6 * 1.6(6) = 1
+    renderText(60, vertTextPos + 60, QString::number(scale * 1.66666666666666666666666)); // if scale = default (0.6) it creates it to 0.6 * 1.6(6) = 1
 
     //сітка 1 2 3 4 5 6 7 8 9 номерів квадратиків
 //    double scaleCoof = scale * 1.66666666666666666666666;
