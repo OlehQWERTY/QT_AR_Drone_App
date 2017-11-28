@@ -11,6 +11,10 @@
 
 class OnlineData
 {
+
+//signals:
+//    void dataChanged(int); // ros generated file || tcp/ip data changed
+
 private:
     // wrapped classes
     GeoCoordinates GeoCoord;

@@ -41,7 +41,7 @@ GeoPointValues *OnlineData::getOnlineData()
     int tempSensorVal = TcpServer.getLastData().toInt(&ok);
     if(ok)
     {
-        unsigned char sensorVal = realSensorValToUChar(tempSensorVal); // correct according to sensor type
+        unsigned char sensorVal = realSensorValToUChar(tempSensorVal/2); // correct according to sensor type
         sensorValToColor(sensorVal);
     }
 

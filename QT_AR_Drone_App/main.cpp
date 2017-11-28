@@ -17,7 +17,8 @@ int main(int argc, char *argv[])
     CMain.setZeroGeoPoint(50.771135, 15.088055);
     CMain.openGlViewInit();
 
-    CMain.getOnlineData();
+//    for(int i = 0; i < 10; i++)
+//        CMain.addPointOnlineData();
 
 //    GeoPointValues *pGeoPoint = CMain.getOnlineData();
 //    qDebug() << "OnlineData";
