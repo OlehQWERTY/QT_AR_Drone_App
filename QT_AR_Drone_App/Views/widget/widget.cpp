@@ -252,16 +252,18 @@ void Widget::drawPoint(/*GeoPointValues PointStruct*/) // add
     glPointSize(5);
     glColor4f(0.00f, 0.00f, 0.00f, 1.0f); // set default color of the Points (in case if color wasn't declarated)
     glBegin(GL_POINTS);
-        foreach (GeoPoint tempGeoPoint, Points) {
-            // add color
-            // (1 + tempGeoPoint.color[0])/255.0 - protection from divide to 0
-            //glColor4f((1 + tempGeoPoint.color[0])/255.0, (1 + tempGeoPoint.color[0])/255.0, (1 + tempGeoPoint.color[0])/255.0, 1.0);
-            colorCalc(tempGeoPoint.color[0]);
-            //qDebug() << "255.0/(tempGeoPoint.color[0]): " << tempGeoPoint.color[0];
-            int cartesianScale = 100; // 1 m * cartesianScale = 1 * cartesianScale px on the OpenGL
-            glVertex3f(tempGeoPoint.cartesianX + w / 2, tempGeoPoint.cartesianY + h/2, tempGeoPoint.cartesianZ);
-            // w / 2 and h/2 set Zero position on the middle of grid
-        }
+    foreach (GeoPoint tempGeoPoint, Points) {
+        // add color
+        // (1 + tempGeoPoint.color[0])/255.0 - protection from divide to 0
+        //glColor4f((1 + tempGeoPoint.color[0])/255.0, (1 + tempGeoPoint.color[0])/255.0, (1 + tempGeoPoint.color[0])/255.0, 1.0);
+        colorCalc(tempGeoPoint.color[0]);
+        //qDebug() << "255.0/(tempGeoPoint.color[0]): " << tempGeoPoint.color[0];
+//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+        int cartesianScale = 100; // 1 m * cartesianScale = 1 * cartesianScale px on the OpenGL
+        glVertex3f(tempGeoPoint.cartesianX * cartesianScale + w / 2, tempGeoPoint.cartesianY * cartesianScale + h/2,
+                   tempGeoPoint.cartesianZ * cartesianScale);
+        // w / 2 and h/2 set Zero position on the middle of grid
+    }
     glEnd();
 }
 
@@ -284,7 +286,7 @@ void Widget::getAllPointsList(const QList<GeoPoint> &GeoMap)
     Points = GeoMap;
 }
 
-void Widget::showAllPoints()
+void Widget::showAllPoints() // just for Debugging
 {
     foreach (GeoPoint tempGeoPoint, Points) {
         qDebug() << "Latitude   " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.latitude;

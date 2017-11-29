@@ -89,4 +89,6 @@ void MainController::updateTime() // timer slot
     //qDebug() << "Timer!";
     addPointOnlineData();
     openGlRedrawPoints();
+
+    OpenGLView.updateGL(); // update open GL scene
 }
