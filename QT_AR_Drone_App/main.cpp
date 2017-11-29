@@ -1,35 +1,13 @@
 #include <QApplication>
 #include "Controllers/MainController/MainController.h"
-//#include "Views/widget/widget.h" // test
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-
-//    Widget w;
-//    w.setSceneParam(800, 800, 80);
-//    w.show();
-
-
-    // put it to MainController
+    // MainController
     MainController CMain(true);
     CMain.setZeroGeoPoint(50.771135, 15.088055);
-    CMain.openGlViewInit();
-
-//    for(int i = 0; i < 10; i++)
-//        CMain.addPointOnlineData();
-
-//    GeoPointValues *pGeoPoint = CMain.getOnlineData();
-//    qDebug() << "OnlineData";
-//    qDebug() << "latitude: " << pGeoPoint->latitude;
-//    qDebug() << "longitude: " << pGeoPoint->longitude;
-//    qDebug() << "cartesianX: " << pGeoPoint->cartesianX;
-//    qDebug() << "cartesianY: " << pGeoPoint->cartesianY;
-//    qDebug() << "cartesianZ: " << pGeoPoint->cartesianZ;
-//    qDebug() << "r: " << pGeoPoint->color[0] << " g: " << pGeoPoint->color[1]
-//                << " b: " << pGeoPoint->color[2];
-//    std::cout << "lol" << std::endl;
 
     return a.exec();
 }

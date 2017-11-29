@@ -20,11 +20,6 @@ private:
 
     QTimer *tmr; // timer
 
-// test
-//    double tempCartesianX = 0;
-//    double tempCartesianY = 0;
-//    double tempCartesianZ = 0;
-    //test
 
     void setOnlineMode(); // add
     void setOfflineMode(); // add
@@ -33,8 +28,6 @@ public:
     MainController(bool online); //bool online
     void openGlViewInit(); // add
     void openGlRedrawPoints();
-
-    //GeoPointValues *getOnlineData();
     void addPointOnlineData();
 
 public slots:

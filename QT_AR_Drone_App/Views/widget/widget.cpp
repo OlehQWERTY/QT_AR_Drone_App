@@ -257,8 +257,10 @@ void Widget::drawPoint(/*GeoPointValues PointStruct*/) // add
             // (1 + tempGeoPoint.color[0])/255.0 - protection from divide to 0
             //glColor4f((1 + tempGeoPoint.color[0])/255.0, (1 + tempGeoPoint.color[0])/255.0, (1 + tempGeoPoint.color[0])/255.0, 1.0);
             colorCalc(tempGeoPoint.color[0]);
-            qDebug() << "255.0/(tempGeoPoint.color[0]): " << tempGeoPoint.color[0];
-            glVertex3f(tempGeoPoint.cartesianX, tempGeoPoint.cartesianY, tempGeoPoint.cartesianZ);
+            //qDebug() << "255.0/(tempGeoPoint.color[0]): " << tempGeoPoint.color[0];
+            int cartesianScale = 100; // 1 m * cartesianScale = 1 * cartesianScale px on the OpenGL
+            glVertex3f(tempGeoPoint.cartesianX + w / 2, tempGeoPoint.cartesianY + h/2, tempGeoPoint.cartesianZ);
+            // w / 2 and h/2 set Zero position on the middle of grid
         }
     glEnd();
 }
@@ -268,77 +270,19 @@ void Widget::colorCalc(unsigned char color) // rewrite me !!!!!!!!!!!!!!!!!!!!!!
     if(color < 127)
     {
         glColor4f((color + 1)/127.0, 1.0, 0, 1.0);
-        qDebug() << (color + 1);
+        //qDebug() << (color + 1);
     }
     else
     {
         glColor4f(1.0, 1.0 - (color + 1)/255.0, 0, 1.0);
-        qDebug() << (color + 1);
+        //qDebug() << (color + 1);
     }
 }
 
-// methods for QList initialisation
-////////////////////////////////////
-
-void Widget::addPoint(double outLatitude, double outLongitude, double outCartesianX, double outCartesianY, double outCartesianZ, unsigned char outColor[3])
+void Widget::getAllPointsList(const QList<GeoPoint> &GeoMap)
 {
-    unsigned char *pColor = &outColor[0];
-    Points.append(GeoPoint(outLatitude, outLongitude, outCartesianX, outCartesianY, outCartesianZ, pColor));
+    Points = GeoMap;
 }
-
-GeoPointValues Widget::getFirst()
-{
-    GeoPointValues tempPointVal;
-    tempPointVal = Points.first().getValue();// return only first element
-    return tempPointVal;
-}
-
-GeoPointValues Widget::getLast()
-{
-    GeoPointValues tempPointVal;
-    tempPointVal = Points.last().getValue();// return only last element
-    return tempPointVal;
-}
-
-GeoPointValues Widget::getPoint(int number)
-{
-    GeoPointValues tempPointVal;
-
-    int i = 1;
-    QList<GeoPoint>::iterator it = Points.begin(); // iterator creation and set it to begine (first element of QList)
-    while (it != Points.end()) {
-        if(i >= number) // if number of element == number
-        {
-            tempPointVal = it->getValue();
-            return tempPointVal;
-        }
-        i++;
-        it++;
-    }
-
-    return tempPointVal; // init tempPointVal as NULL rewrite it like a pointer
-    //and return * NULL if number > GeoJsonMap.getLength
-}
-
-int Widget::getLength()
-{
-    int length = 0;
-    foreach (GeoPoint tempGeoPoint, Points) { // I know about this warning)
-        length++;
-    }
-
-    return length;
-}
-
-
-
-
-
-
-
-
-
-
 
 void Widget::showAllPoints()
 {
@@ -353,25 +297,3 @@ void Widget::showAllPoints()
         qDebug() << "------------------";
     }
 }
-
-
-
-
-//int Width = ::N/2*::Scale;
-//int High = ::M/2*::Scale;
-
-//for(int i = 0; i < ::showed_data_number; i++)
-//{
-//glPushMatrix(); //Запомнили
-
-//    //glColor3f( (color_test/.32 - 0.65) * 4, 0.8 - (color_test/.32 - 0.65) * 3, 0.0 );//RGB color of glRectf
-//    if(p_formated_data->gas_data < 515)
-//        glColor3f( (p_formated_data->gas_data-512) * 0.15 , 0.7, 0.0 );//RGB color of glRectf
-//    else if(p_formated_data->gas_data > 515)
-//        glColor3f( 0.6 , 0.6 - ((p_formated_data->gas_data-512) * 0.03), 0.0 );//RGB color of glRectf
-
-//    glTranslatef(Width + Scale_for_x_y_z_of_points * p_formated_data->x, High + Scale_for_x_y_z_of_points * p_formated_data->y, -1*Scale_for_x_y_z_of_points * p_formated_data->z); //Сместили
-//    p_formated_data++;//pointer of next element
-//    glutSolidSphere( 2.0, 10.0, 10.0);//сфера 1 radius 2 slices 3 stacks
-//    glPopMatrix(); //Восстановили
-//}

@@ -297,6 +297,11 @@ void GeoMap::saveToFile(bool geo) // if true - save to geo as Js func, else - or
     F.close();
 }
 
+QList<GeoPoint> GeoMap::getAllPointsList()
+{
+    return Points;
+}
+
 void GeoMap::showAllPoints()
 {
     foreach (GeoPoint tempGeoPoint, Points) {

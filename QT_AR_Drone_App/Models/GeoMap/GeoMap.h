@@ -41,6 +41,9 @@ public:
     void save(); // saveToFile(false) - save Json
     void mapUpdate(); // saveToFile(true) - save geo_json.json for JS script Google maps API
 
+    // test return QList<GeoPoint> Points;
+    QList<GeoPoint> getAllPointsList(); // it is neaded for sending all points to View part of App
+
     void showAllPoints(); // just for Debugging
     void showJson(); // just for Debugging
 };
