@@ -1,6 +1,8 @@
 #ifndef MYTCPSERVER_H
 #define MYTCPSERVER_H
 
+// TCP IP QT realisation
+
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
@@ -10,7 +12,7 @@ class MyTcpServer : public QObject
     Q_OBJECT
 public:
     explicit MyTcpServer(QObject *parent = 0);
-    QByteArray getLastData(); // add
+    QByteArray getLastData();
 
 public slots:
     void slotNewConnection();

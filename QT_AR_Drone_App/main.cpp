@@ -4,11 +4,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
     // MainController
-    MainController CMain(true);
-    CMain.setZeroGeoPoint(50.771135, 15.088055);
-
+    MainController CMain(50.771135, 15.088055); // zero geo location
+    CMain.setFileName("29_11_17_16_33_24.json"); // it is neaded only for offline mode
+    CMain.setMode(false); // true - online
     return a.exec();
 }
 

@@ -1,19 +1,15 @@
 #include "MainController.h"
 
-MainController::MainController(bool online = true) : OnlineData() // bool online
+MainController::MainController(const double &Latitude, const double &Longitude) : OnlineData()
 {
-    // timer
-    tmr = new QTimer(this);
-    tmr->setInterval(1000);
-    connect(tmr, SIGNAL(timeout()), this, SLOT(updateTime()));
-    tmr->start();
-    //timer
-
-    // open GL
     openGlViewInit();
+    setZeroGeoPoint(Latitude, Longitude);
+}
 
+void MainController::setMode(bool online = true) // bool online
+{
     //set mode
-    mode = online;
+    mode = online; // ? if it will be neaded like flag, else del it
     if(mode)
     {
         setOnlineMode();
@@ -24,19 +20,31 @@ MainController::MainController(bool online = true) : OnlineData() // bool online
     }
 }
 
-void MainController::setOnlineMode() // work with OnlineData
+void MainController::setOnlineMode() // connected with OnlineData
 {
-
+    // timer
+    tmr = new QTimer(this);
+    tmr->setInterval(1000);
+    connect(tmr, SIGNAL(timeout()), this, SLOT(updateTime()));
+    tmr->start();
 }
 
-void MainController::setOfflineMode() // work with GeoMap
+void MainController::setOfflineMode() // connected with GeoMap
 {
-
+    Map.convertJsonToPoints(fileName);
+    //Map.showJson();
+    //Map.showAllPoints();
+    openGlRedrawPoints();
+    OpenGLView.updateGL(); // update open GL scene
 }
 
-void MainController::openGlViewInit() // work with view
+void MainController::setFileName(QString tempFileName)
 {
-    //Widget OpenGLView;
+    fileName = tempFileName;
+}
+
+void MainController::openGlViewInit()
+{
     OpenGLView.setSceneParam(800, 800, 80);
     OpenGLView.show();
 }
@@ -47,7 +55,7 @@ void MainController::openGlRedrawPoints()
    //OpenGLView.showAllPoints();
 }
 
-void MainController::addPointOnlineData() // add data from Online Data
+void MainController::addPointFromOnlineData()
 {
     GeoPointValues *pTempGeoPointValues;
     unsigned char tempColor[3] = {0, 0, 0};
@@ -64,13 +72,9 @@ void MainController::addPointOnlineData() // add data from Online Data
 
     Map.addPoint(pTempGeoPointValues->latitude, pTempGeoPointValues->longitude, pTempGeoPointValues->cartesianX,
                  pTempGeoPointValues->cartesianY, pTempGeoPointValues->cartesianZ, tempColor);
-
     Map.save();
     Map.mapUpdate();
-
-    //qDebug() << "timer test";
-    //Map.showAllPoints();
-
+    //Map.showAllPoints(); // debugging
     //get Point
     qDebug() << "Length" << Map.getLength();
 
@@ -86,9 +90,7 @@ void MainController::addPointOnlineData() // add data from Online Data
 
 void MainController::updateTime() // timer slot
 {
-    //qDebug() << "Timer!";
-    addPointOnlineData();
+    addPointFromOnlineData();
     openGlRedrawPoints();
-
     OpenGLView.updateGL(); // update open GL scene
 }

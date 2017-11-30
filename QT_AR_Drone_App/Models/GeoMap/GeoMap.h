@@ -1,5 +1,6 @@
 #ifndef GEOMAP_H
 #define GEOMAP_H
+
 //this class includes all points on the map and has all methods for create Json file
 
 //Json includes

@@ -1,6 +1,8 @@
 #ifndef GEOCOORDINATES_H
 #define GEOCOORDINATES_H
 
+//this class takes odometry from ROS and convert it to geolocation coordinates
+
 #include <iostream>
 using namespace std;
 

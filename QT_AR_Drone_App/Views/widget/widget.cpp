@@ -32,10 +32,10 @@ void Widget::setSceneParam(int outW, int outH, int outGridSize)
 void Widget::initializeGL()
 {
    qglClearColor(Qt::black); // filling screen with black color (background color)
-   glEnable(GL_DEPTH_TEST);  // задаем глубину проверки пикселей
-   glShadeModel(GL_FLAT); // убираем режим сглаживания цветов
-   glEnable(GL_CULL_FACE); // говорим, что будем строить только внешние поверхности
-   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); // фигуры будут закрашены с обеих сторон
+   glEnable(GL_DEPTH_TEST);
+   glShadeModel(GL_FLAT); // without antialiasing for colors
+   glEnable(GL_CULL_FACE); // build outdor shapes
+   glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); // figures painted front and back // !!!!!! test GL_FRONT
 }
  
 void Widget::resizeGL(int nWidth, int nHeight)
@@ -50,7 +50,7 @@ void Widget::resizeGL(int nWidth, int nHeight)
     glLoadIdentity();
 }
  
-void Widget::paintGL() // рисование
+void Widget::paintGL() // draving
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // display clearing
     glMatrixMode(GL_MODELVIEW); // set model-view matrix
@@ -69,10 +69,8 @@ void Widget::paintGL() // рисование
     glRotatef(zRotation, 0.0f, 0.0f, 1.0f); // ratation along Z
     glTranslatef(-1*r_x, -1*r_y, -1*r_z); // rotate round point x y z
     drawGrid();
-    drawPoint(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    drawPoint();
     glPopMatrix(); // recovering of previously saved matrix
-
-
     // show xyz axis
     glPushMatrix(); // remember transp matrix
     // rotation and scaling
@@ -82,7 +80,6 @@ void Widget::paintGL() // рисование
     glRotatef(zRotation, 0.0f, 0.0f, 1.0f); // ratation along Z
     drawAxis();
     glPopMatrix(); // recovering of previously saved matrix
-
     // screenInfo
     screenInfo();
 
@@ -191,14 +188,13 @@ void Widget::screenInfo()
 
 void Widget::drawGrid()//Drowing of Fields
 {
-    //int gridSize = 80;
-    glLineWidth(2.0f); // устанавливаем ширину линии
-    glColor3f(0.1, 0.1, 0.1);//Color of Fields
+    glLineWidth(2.0f); // set line width
+    glColor3f(0.1, 0.1, 0.1); // color of Fields
 
     glBegin(GL_LINES);
 
     //xy
-    for (int i = 0; i <= w; i += gridSize) // change gridSize grid size
+    for (int i = 0; i <= w; i += gridSize) // gridSize change grid size
     {
         glVertex3f(i, 0, 0);
         glVertex3f(i, h, 0);
@@ -209,7 +205,7 @@ void Widget::drawGrid()//Drowing of Fields
         glVertex3f(w, j, 0);
     }
     //yz
-    glColor3f(0.2, 0.2, 0.2);//Color of Fields
+    glColor3f(0.2, 0.2, 0.2); // color of Fields
     for (int i = 0; i <= w; i += gridSize)
     {
         glVertex3f(0, i, 0);
@@ -221,7 +217,7 @@ void Widget::drawGrid()//Drowing of Fields
         glVertex3f(0, w, j);
     }
     //xz
-    glColor3f(0.3, 0.3 ,0.3);//Color of Fields
+    glColor3f(0.3, 0.3 ,0.3); // color of Fields
     for (int i = 0; i <= w; i += gridSize)
     {
         glVertex3f(i, w, 0);
@@ -232,37 +228,20 @@ void Widget::drawGrid()//Drowing of Fields
         glVertex3f(0, w, j);
         glVertex3f(w, w, j);
     }
-
     glEnd();
 }
 
-void Widget::drawPoint(/*GeoPointValues PointStruct*/) // add
+void Widget::drawPoint()
 {
-//    foreach (GeoPoint tempGeoPoint, Points) {
-//        qDebug() << "Latitude   " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.latitude;
-//        qDebug() << "Longitude  " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.longitude;
-//        qDebug() << "CartesianX " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.cartesianX;
-//        qDebug() << "cartesianY " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.cartesianY;
-//        qDebug() << "cartesianZ " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.cartesianZ;
-//        qDebug() << "Color      " << "[" << tempGeoPoint.id << "]"
-//                 << "r" << tempGeoPoint.color[0] << "g" << tempGeoPoint.color[1] << "b" << tempGeoPoint.color[2];
-//        qDebug() << "------------------";
-//    }
-
     glPointSize(5);
     glColor4f(0.00f, 0.00f, 0.00f, 1.0f); // set default color of the Points (in case if color wasn't declarated)
     glBegin(GL_POINTS);
-    foreach (GeoPoint tempGeoPoint, Points) {
+    foreach (GeoPoint tempGeoPoint, Points) { // it is possible to optimise it by showing 300 points
+        //(show each # i =+ int(ammount points / 300) )
         // add color
-        // (1 + tempGeoPoint.color[0])/255.0 - protection from divide to 0
-        //glColor4f((1 + tempGeoPoint.color[0])/255.0, (1 + tempGeoPoint.color[0])/255.0, (1 + tempGeoPoint.color[0])/255.0, 1.0);
-        colorCalc(tempGeoPoint.color[0]);
-        //qDebug() << "255.0/(tempGeoPoint.color[0]): " << tempGeoPoint.color[0];
-//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-        int cartesianScale = 100; // 1 m * cartesianScale = 1 * cartesianScale px on the OpenGL
+        colorCalc(tempGeoPoint.color[0]); // ! rewrite it
         glVertex3f(tempGeoPoint.cartesianX * cartesianScale + w / 2, tempGeoPoint.cartesianY * cartesianScale + h/2,
-                   tempGeoPoint.cartesianZ * cartesianScale);
-        // w / 2 and h/2 set Zero position on the middle of grid
+                   tempGeoPoint.cartesianZ * cartesianScale); // w / 2 and h/2 set Zero position on the middle of grid
     }
     glEnd();
 }

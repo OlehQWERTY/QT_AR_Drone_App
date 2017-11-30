@@ -41,5 +41,5 @@ GeoPointValues GeoPoint::getValue() // return data fields of the GeoPoint throw 
     {
         PointStruct.color[i] = color[i];
     }
-    return PointStruct; // maybie pointer will be better?
+    return PointStruct; // maybe pointer will be better?
 }

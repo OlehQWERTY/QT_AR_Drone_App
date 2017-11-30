@@ -28,7 +28,6 @@ void MyTcpServer::slotNewConnection()
 
 void MyTcpServer::slotServerRead()
 {
-    //std::cout << "slotServerRead" << std::endl;
     while(mTcpSocket->bytesAvailable()>0)
     {
         QByteArray array = mTcpSocket->readAll(); // data that is received throw tcp/ip
@@ -43,7 +42,7 @@ void MyTcpServer::slotClientDisconnected()
     mTcpSocket->close();
 }
 
-QByteArray MyTcpServer::getLastData()//add
+QByteArray MyTcpServer::getLastData()
 {
     return lastReceivedData;
 }

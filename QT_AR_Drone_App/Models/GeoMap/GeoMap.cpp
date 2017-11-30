@@ -48,7 +48,7 @@ GeoPointValues GeoMap::getPoint(int number)
 int GeoMap::getLength()
 {
     int length = 0;
-    foreach (GeoPoint tempGeoPoint, Points) { // I know about this warning)
+    foreach (GeoPoint tempGeoPoint, Points) {
         length++;
     }
 
@@ -105,7 +105,6 @@ void GeoMap::convertPointsToJson()
 
             pointObject.insert("geometry", geometryObject);
 
-
     pointsArray.push_back(pointObject);
 
     }
@@ -115,8 +114,6 @@ void GeoMap::convertPointsToJson()
 void GeoMap::convertJsonToPoints(QString tempFileName)
 {
     readFromFile(tempFileName);
-    //qDebug() << JsonObject; // test
-
     QJsonValue featuresVal = JsonObject.value("features");
 
     if(featuresVal.isArray()){
@@ -130,12 +127,6 @@ void GeoMap::convertJsonToPoints(QString tempFileName)
             // cartesian coordinates
             QJsonValue cartesianVal = geometryObj.value("cartesian");
             QJsonArray cartesianArr = cartesianVal.toArray();
-            //test
-            //qWarning() << cartesianArr.size();
-//            qWarning() << "Cartesian [" << i << "]: ";
-//            qWarning() << cartesianArr.at(0).toDouble();
-//            qWarning() << cartesianArr.at(1).toDouble();
-//            qWarning() << cartesianArr.at(2).toDouble();
 
             double tempCartesianX = cartesianArr.at(0).toDouble();
             double tempCartesianY = cartesianArr.at(1).toDouble();
@@ -145,27 +136,18 @@ void GeoMap::convertJsonToPoints(QString tempFileName)
             QJsonValue coordinatesVal = geometryObj.value("coordinates");
             QJsonArray coordinatesArr = coordinatesVal.toArray();
             //qWarning() << coordinatesArr.size();
-            //test
-//            qWarning() << "Coordinates [" << i << "]: ";
-//            qWarning() << coordinatesArr.at(0).toDouble();
-//            qWarning() << coordinatesArr.at(1).toDouble();
 
             double tempLongitude = coordinatesArr.at(0).toDouble();
             double tempLatitude = coordinatesArr.at(1).toDouble();
 
             QJsonValue propertiesVal = subtree.value("properties");
             QJsonObject propertiesObj = propertiesVal.toObject();
-            //qWarning() << propertiesObj;
 
             // properties
-//            qWarning() << "properties";
             QJsonValue maker_colorVal = propertiesObj.value("maker_color");
-//            qWarning() << maker_colorVal.toString();
             QString tempCilorString = maker_colorVal.toString();
-            // add convert method for maker_colorVal.toString() (#aa13bbff) -> unsigned char[3] (cut ff in the end)
 
             QJsonValue maker_symbolVal = propertiesObj.value("maker_symbol");
-//            qWarning() << maker_symbolVal.toInt();
             int tempSymbol = maker_symbolVal.toInt(); // not used here
 
             unsigned char tempColor[3] = {0, 0, 0};
@@ -176,7 +158,6 @@ void GeoMap::convertJsonToPoints(QString tempFileName)
                 for(int i = 0; i < 3; i++)
                 {
                     tempColor[i] = pTempColor[i];
-//                    qDebug() << "tempColor[" << i << "]" << tempColor[i];
                 }
             }
             addPoint(tempLatitude, tempLongitude, tempCartesianX, tempCartesianY, tempCartesianZ, tempColor); // add new point to QList Points
@@ -202,7 +183,6 @@ void GeoMap::getFileName()
     fileName = QDate::currentDate().toString("dd_MM_yy_") + QTime::currentTime().toString("hh_mm_ss")
             + ".json";
     //qDebug() << "FileName: " << ("./Json_files/" + fileName);
-
 }
 
 // int instead of unsigned char because JavaScript can't use transformed string as color. I don't know wtf!
@@ -233,11 +213,9 @@ bool GeoMap::HexSpecQStringToColorChar(QString HexColor, unsigned char *pArr) //
         for(int i = 0; i < 3; i++)
         {
             QString subRColor = HexColor.mid(1 + i * 2, 2); // for example "#3013bbff" -> from 1 to 1 + 2 (30, 13, bb) and so on
-            //qDebug() << subRColor;
             if(ok)
             {
                 pArr[i] = subRColor.toInt(&ok, 16);
-                //qDebug() << pArr[i];
             }
             else
             {
@@ -256,10 +234,8 @@ void GeoMap::readFromFile(QString tempFileName) // 21_11_17_13_52_36.json
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     val = file.readAll();
     file.close();
-    //qWarning() << val;
     QJsonDocument doc = QJsonDocument::fromJson(val.toUtf8());
     JsonObject = doc.object(); // QJsonObject root = doc.object();
-//    qDebug() << JsonObject; // test
 }
 
 void GeoMap::saveToFile(bool geo) // if true - save to geo as Js func, else - ordinary Json
@@ -293,7 +269,6 @@ void GeoMap::saveToFile(bool geo) // if true - save to geo as Js func, else - or
         F.write(jsdoc.toJson());
         F.write(")");
     }
-
     F.close();
 }
 
@@ -319,7 +294,6 @@ void GeoMap::showAllPoints()
 void GeoMap::showJson()
 {
     convertPointsToJson();
-
     QJsonDocument jsdoc(JsonObject);
     qDebug() << jsdoc.toJson();
 }
