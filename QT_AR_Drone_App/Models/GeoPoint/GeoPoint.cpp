@@ -2,22 +2,23 @@
 
 unsigned long int GeoPoint::counter = 0;
 
-GeoPoint::GeoPoint(double outLatitude, double outLongitude, double outCartesianX, double outCartesianY, double outCartesianZ, unsigned char *pOutColor)
+GeoPoint::GeoPoint(double outLatitude, double outLongitude, double outCartesianX, double outCartesianY, double outCartesianZ, unsigned long int outTimestamp, unsigned char *pOutColor)
 {
     set3UCharColorArr(pOutColor);
     counter++;
     this->id = counter;
-    setValue(outLatitude, outLongitude, outCartesianX, outCartesianY, outCartesianZ);
+    setValue(outLatitude, outLongitude, outCartesianX, outCartesianY, outCartesianZ, outTimestamp);
     set3UCharColorArr(pOutColor);
 }
 
-void GeoPoint::setValue(double outLatitude, double outLongitude, double outCartesianX, double outCartesianY, double outCartesianZ)
+void GeoPoint::setValue(double outLatitude, double outLongitude, double outCartesianX, double outCartesianY, double outCartesianZ, unsigned long int outTimestamp)
 {
     latitude = outLatitude;
     longitude = outLongitude;
     cartesianX = outCartesianX;
     cartesianY = outCartesianY;
     cartesianZ = outCartesianZ;
+    timestamp = outTimestamp;
 }
 
 void GeoPoint::set3UCharColorArr(unsigned char *pOutColor)
@@ -37,6 +38,7 @@ GeoPointValues GeoPoint::getValue() // return data fields of the GeoPoint throw 
     PointStruct.cartesianX = cartesianX;
     PointStruct.cartesianY = cartesianY;
     PointStruct.cartesianZ = cartesianZ;
+    PointStruct.timestamp = timestamp;
     for (int i = 0; i < 3; i++)
     {
         PointStruct.color[i] = color[i];

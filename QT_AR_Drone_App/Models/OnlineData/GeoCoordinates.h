@@ -22,7 +22,7 @@ private:
     double zeroDegLatitude = 0;
     double zeroDegLongitude = 0;
 
-    unsigned long int odometryTime = 0; // not used now
+    unsigned long int odometryTime = 0;
     double odometryX = 0;
     double odometryY = 0;
     double odometryZ = 0;

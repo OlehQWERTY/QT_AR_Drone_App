@@ -33,7 +33,7 @@ private:
     void saveToFile(bool); // save to file with name(data + time).json (false) or save geo_json.json as func for JS script (true)
 public:
     GeoMap();
-    void addPoint(double, double, double, double, double, unsigned char[3]);  // add color
+    void addPoint(double, double, double, double, double, unsigned long int, unsigned char[3]);  // add color
     GeoPointValues getFirst();
     GeoPointValues getLast();
     GeoPointValues getPoint(int);

@@ -5,10 +5,10 @@ GeoMap::GeoMap()
     getFileName();
 }
 
-void GeoMap::addPoint(double outLatitude, double outLongitude, double outCartesianX, double outCartesianY, double outCartesianZ, unsigned char outColor[3])
+void GeoMap::addPoint(double outLatitude, double outLongitude, double outCartesianX, double outCartesianY, double outCartesianZ, unsigned long int outTimestamp, unsigned char outColor[3])
 {
     unsigned char *pColor = &outColor[0];
-    Points.append(GeoPoint(outLatitude, outLongitude, outCartesianX, outCartesianY, outCartesianZ, pColor));
+    Points.append(GeoPoint(outLatitude, outLongitude, outCartesianX, outCartesianY, outCartesianZ, outTimestamp, pColor));
 }
 
 GeoPointValues GeoMap::getFirst()
@@ -160,7 +160,7 @@ void GeoMap::convertJsonToPoints(QString tempFileName)
                     tempColor[i] = pTempColor[i];
                 }
             }
-            addPoint(tempLatitude, tempLongitude, tempCartesianX, tempCartesianY, tempCartesianZ, tempColor); // add new point to QList Points
+            addPoint(tempLatitude, tempLongitude, tempCartesianX, tempCartesianY, tempCartesianZ, 0, tempColor); // add new point to QList Points (0 - temp timestamp, it will be added in future patch)
         }
     }
 }
@@ -285,6 +285,7 @@ void GeoMap::showAllPoints()
         qDebug() << "CartesianX " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.cartesianX;
         qDebug() << "cartesianY " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.cartesianY;
         qDebug() << "cartesianZ " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.cartesianZ;
+        qDebug() << "timestamp  " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.timestamp;
         qDebug() << "Color      " << "[" << tempGeoPoint.id << "]"
                  << "r" << tempGeoPoint.color[0] << "g" << tempGeoPoint.color[1] << "b" << tempGeoPoint.color[2];
         qDebug() << "------------------";

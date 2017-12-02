@@ -18,7 +18,7 @@ void Widget::setSceneParam(int outW, int outH, int outGridSize)
     gridSize = outGridSize;
     if(w >= 300 && h >= 300 && gridSize >= 30) // checking window size and grid size
     {
-        resize(w, h);
+        resize(700, 700); // test! previous: resize(w, h)
     }
     else
     {
@@ -40,11 +40,15 @@ void Widget::initializeGL()
  
 void Widget::resizeGL(int nWidth, int nHeight)
 {
+//    double ratio = double(nWidth) / nHeight;
+//    qDebug() << "nWidth: " << nWidth;
+//    qDebug() << "nHeight: " << nHeight;
+//    qDebug() << "Ratio: " << ratio;
     glViewport(0, 0, nWidth, nHeight); // set view point
     glMatrixMode(GL_PROJECTION);       // set matrix mode
     glLoadIdentity();                  // load 1 matrix
     double maxVal = w > h ? w : h;
-    glOrtho(-100.0, w + 100.0, -100.0, h + 100.0, -100 + -1.0 * maxVal, 100.0 + maxVal);/* left(-100) right(900) bottom(-100) top(900)
+    glOrtho(-100.0, w + 100.0, -100.0, h + 100.0, -100 + -1.0 * maxVal - 200, 100.0 + maxVal);/* left(-100) right(900) bottom(-100) top(900)
         near_val(-900) har_val(900) for scene 800 * 800*/
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -88,17 +92,22 @@ void Widget::paintGL() // draving
 void Widget::mousePressEvent(QMouseEvent* pe) // mouse button is pressed
 {
    // save mouse coordinates
-   mousePos = pe->pos();
+    mousePos = pe->pos();
 }
 
 void Widget::mouseMoveEvent(QMouseEvent* pe) // mouse arrow position is changed
 { // calculation of rotation angle acording to pressed mouse pos
-   xRotation += 180/scale*(GLfloat)(pe->y()-mousePos.y())/height();
-   zRotation += 180/scale*(GLfloat)(pe->x()-mousePos.x())/width();
+    xRotation += 180/scale*(GLfloat)(pe->y()-mousePos.y())/height();
+    zRotation += 180/scale*(GLfloat)(pe->x()-mousePos.x())/width();
 
-   mousePos = pe->pos();
+    mousePos = pe->pos();
 
-   updateGL(); // image update
+    updateGL(); // image update
+}
+
+void Widget::mouseDoubleClickEvent(QMouseEvent *pe)
+{
+    qDebug() << "Double click!";
 }
 
 void Widget::mouseReleaseEvent(QMouseEvent *pe)
@@ -171,6 +180,14 @@ void Widget::screenInfo()
     renderText(10, vertTextPos + 60, "scale: ");
     //QString convertToNormalScaleForShowing = QString::number(scale);
     renderText(60, vertTextPos + 60, QString::number(scale * 1.66666666666666666666666)); // if scale = default (0.6) it creates it to 0.6 * 1.6(6) = 1
+    //qDebug() << QDateTime::fromTime_t(x);
+    renderText(460, vertTextPos + 80, "Start time: ");
+    renderText(460, vertTextPos + 100, "Current time: ");
+    if(!Points.isEmpty())
+    {
+        renderText(550, vertTextPos + 80, QDateTime::fromTime_t(Points.at(0).timestamp).toString("dd/MM/yy hh:mm:ss"));
+        renderText(550, vertTextPos + 100, QDateTime::fromTime_t(Points.at(Points.size() - 1).timestamp).toString("dd/MM/yy hh:mm:ss"));
+    }
 
     //сітка 1 2 3 4 5 6 7 8 9 номерів квадратиків
 //    double scaleCoof = scale * 1.66666666666666666666666;
@@ -188,7 +205,7 @@ void Widget::screenInfo()
 
 void Widget::drawGrid()//Drowing of Fields
 {
-    glLineWidth(2.0f); // set line width
+    glLineWidth(1.0f); // set line width
     glColor3f(0.1, 0.1, 0.1); // color of Fields
 
     glBegin(GL_LINES);
@@ -233,10 +250,10 @@ void Widget::drawGrid()//Drowing of Fields
 
 void Widget::drawPoint()
 {
-    glPointSize(5);
+    glPointSize(3);
     glColor4f(0.00f, 0.00f, 0.00f, 1.0f); // set default color of the Points (in case if color wasn't declarated)
     glBegin(GL_POINTS);
-    foreach (GeoPoint tempGeoPoint, Points) { // it is possible to optimise it by showing 300 points
+    foreach (GeoPoint tempGeoPoint, Points) { // it is possible to optimise it by showing 300 points or using glDrawArrays
         //(show each # i =+ int(ammount points / 300) )
         // add color
         colorCalc(tempGeoPoint.color[0]); // ! rewrite it
@@ -273,6 +290,7 @@ void Widget::showAllPoints() // just for Debugging
         qDebug() << "CartesianX " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.cartesianX;
         qDebug() << "cartesianY " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.cartesianY;
         qDebug() << "cartesianZ " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.cartesianZ;
+        qDebug() << "timestamp  " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.timestamp;
         qDebug() << "Color      " << "[" << tempGeoPoint.id << "]"
                  << "r" << tempGeoPoint.color[0] << "g" << tempGeoPoint.color[1] << "b" << tempGeoPoint.color[2];
         qDebug() << "------------------";

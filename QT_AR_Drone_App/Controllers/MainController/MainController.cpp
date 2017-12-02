@@ -8,9 +8,7 @@ MainController::MainController(const double &Latitude, const double &Longitude) 
 
 void MainController::setMode(bool online = true) // bool online
 {
-    //set mode
-    mode = online; // ? if it will be neaded like flag, else del it
-    if(mode)
+    if(online)
     {
         setOnlineMode();
     }
@@ -24,7 +22,7 @@ void MainController::setOnlineMode() // connected with OnlineData
 {
     // timer
     tmr = new QTimer(this);
-    tmr->setInterval(1000);
+    tmr->setInterval(1000); // timer interval 1 sec
     connect(tmr, SIGNAL(timeout()), this, SLOT(updateTime()));
     tmr->start();
 }
@@ -46,6 +44,8 @@ void MainController::setFileName(QString tempFileName)
 void MainController::openGlViewInit()
 {
     OpenGLView.setSceneParam(800, 800, 80);
+    OpenGLView.setWindowTitle("OpenGL Gas Map");
+    OpenGLView.setWindowIcon(QIcon("myappico.ico")); // app icon
     OpenGLView.show();
 }
 
@@ -71,7 +71,7 @@ void MainController::addPointFromOnlineData()
     }
 
     Map.addPoint(pTempGeoPointValues->latitude, pTempGeoPointValues->longitude, pTempGeoPointValues->cartesianX,
-                 pTempGeoPointValues->cartesianY, pTempGeoPointValues->cartesianZ, tempColor);
+                 pTempGeoPointValues->cartesianY, pTempGeoPointValues->cartesianZ, pTempGeoPointValues->timestamp, tempColor);
     Map.save();
     Map.mapUpdate();
     //Map.showAllPoints(); // debugging

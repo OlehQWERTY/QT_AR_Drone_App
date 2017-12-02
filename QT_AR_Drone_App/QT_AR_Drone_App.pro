@@ -7,6 +7,8 @@ TEMPLATE = app
 CONFIG += c++11
 #CONFIG = console # default ubuntu console
 
+RC_ICONS = myappico.ico # add app icon
+
 HEADERS += \
     Models/GeoMap/GeoMap.h \
     Models/GeoPoint/GeoPoint.h \

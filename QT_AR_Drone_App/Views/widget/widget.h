@@ -32,14 +32,15 @@ protected:
     void paintGL();
     // mouse
     void mousePressEvent(QMouseEvent* pe);   // mouse button is pressed
-    void mouseMoveEvent(QMouseEvent* pe);    // mouse button is mooving
+    void mouseMoveEvent(QMouseEvent* pe);    // mouse button move
     void mouseReleaseEvent(QMouseEvent* pe); // mouse button is unpressed
+    void mouseDoubleClickEvent(QMouseEvent* pe); // mouse double click
     void wheelEvent(QWheelEvent *);          // mouse wheel spinning
 
 public:
     Widget(QWidget *parent = 0);
     void setSceneParam(int outW, int outH, int outGridSize);
-    void drawPoint(); // draw one point // !!!!!!!!!! it is possible to optimise it by showing only 300 points
+    void drawPoint(); // it is possible to optimise it by showing only 300 points or using glDrawArrays
     void getAllPointsList(const QList<GeoPoint> &GeoMap);
 
     void showAllPoints(); // just for Debugging

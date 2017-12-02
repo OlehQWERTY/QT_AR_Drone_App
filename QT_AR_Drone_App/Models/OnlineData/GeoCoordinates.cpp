@@ -67,6 +67,7 @@ void GeoCoordinates::parseOdometry(QString line)
 GeoPointValues *GeoCoordinates::odometryToGeo()
 {
     parseOdometry(readFromFile());
+    pGeoPoint->timestamp = odometryTime;
     // cartesian write to struct
     pGeoPoint->cartesianX = odometryX;
     pGeoPoint->cartesianY = odometryY;
