@@ -107,7 +107,7 @@ void Widget::mouseMoveEvent(QMouseEvent* pe) // mouse arrow position is changed
 
 void Widget::mouseDoubleClickEvent(QMouseEvent *pe)
 {
-    qDebug() << "Double click!";
+    //qDebug() << "Double click!";
 }
 
 void Widget::mouseReleaseEvent(QMouseEvent *pe)

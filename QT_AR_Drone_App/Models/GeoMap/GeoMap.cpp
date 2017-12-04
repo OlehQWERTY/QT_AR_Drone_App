@@ -65,8 +65,8 @@ void GeoMap::convertPointsToJson()
     {
         GeoPointValues tempPointVal = getPoint(i);
         QJsonObject pointObject;
-
             pointObject.insert("type", QJsonValue::fromVariant("Feature"));
+            pointObject.insert("time", QJsonValue::fromVariant(QString::number(tempPointVal.timestamp))); // time marker
 
             int number = tempPointVal.id;
             QJsonObject propertiesObject;
@@ -150,6 +150,11 @@ void GeoMap::convertJsonToPoints(QString tempFileName)
             QJsonValue maker_symbolVal = propertiesObj.value("maker_symbol");
             int tempSymbol = maker_symbolVal.toInt(); // not used here
 
+            // timestamp
+            QJsonValue timestampVal = subtree.value("time");
+            QString tempTimestamp = timestampVal.toString();
+            unsigned long int tempTimestampULInt = tempTimestamp.toULong();
+
             unsigned char tempColor[3] = {0, 0, 0};
             unsigned char *pTempColor = tempColor;
             bool ok = HexSpecQStringToColorChar(tempCilorString, pTempColor);
@@ -160,7 +165,7 @@ void GeoMap::convertJsonToPoints(QString tempFileName)
                     tempColor[i] = pTempColor[i];
                 }
             }
-            addPoint(tempLatitude, tempLongitude, tempCartesianX, tempCartesianY, tempCartesianZ, 0, tempColor); // add new point to QList Points (0 - temp timestamp, it will be added in future patch)
+            addPoint(tempLatitude, tempLongitude, tempCartesianX, tempCartesianY, tempCartesianZ, tempTimestampULInt, tempColor); // add new point to QList Points (0 - temp timestamp, it will be added in future patch)
         }
     }
 }

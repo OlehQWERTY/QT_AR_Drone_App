@@ -34,7 +34,7 @@ protected:
     void mousePressEvent(QMouseEvent* pe);   // mouse button is pressed
     void mouseMoveEvent(QMouseEvent* pe);    // mouse button move
     void mouseReleaseEvent(QMouseEvent* pe); // mouse button is unpressed
-    void mouseDoubleClickEvent(QMouseEvent* pe); // mouse double click
+    void mouseDoubleClickEvent(QMouseEvent* pe); // mouse double click // i don't nead it now
     void wheelEvent(QWheelEvent *);          // mouse wheel spinning
 
 public:
