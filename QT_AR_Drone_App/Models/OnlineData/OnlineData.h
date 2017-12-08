@@ -23,9 +23,10 @@ private:
     // struct with PoinValues
     GeoPointValues *pGeoPoint = NULL;
 
+    //unsigned char color[3] = {0, 0, 0}; // color arr = r g b
+
     //unsigned char sensorVal = 0;
-    unsigned char realSensorValToUChar(int);
-    void sensorValToColor(unsigned char);
+    void sensorValToColor(int &, const int &, const int &);
 
 public:
 

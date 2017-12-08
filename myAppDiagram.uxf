@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><diagram program="umlet" version="11.3">
-  <zoom_level>7</zoom_level>
+  <zoom_level>6</zoom_level>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>280</x>
-      <y>371</y>
-      <w>84</w>
-      <h>63</h>
+      <x>306</x>
+      <y>360</y>
+      <w>72</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>TCP/IP
 --
@@ -19,32 +19,32 @@ bg=yellow</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>182</x>
-      <y>371</y>
-      <w>111</w>
-      <h>62</h>
+      <x>222</x>
+      <y>360</y>
+      <w>96</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>21;49;77;49;77;21;98;21</additional_attributes>
+    <additional_attributes>18;42;66;42;66;18;84;18</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>182</x>
-      <y>441</y>
-      <w>111</w>
-      <h>34</h>
+      <x>222</x>
+      <y>420</y>
+      <w>96</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>21;21;98;21</additional_attributes>
+    <additional_attributes>18;18;84;18</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>280</x>
-      <y>441</y>
-      <w>84</w>
-      <h>63</h>
+      <x>306</x>
+      <y>420</y>
+      <w>72</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>GeoCoordinates
 --
@@ -58,10 +58,10 @@ bg=yellow</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>399</x>
-      <y>378</y>
-      <w>84</w>
-      <h>105</h>
+      <x>408</x>
+      <y>366</y>
+      <w>72</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>OnlineData
 --
@@ -77,32 +77,34 @@ bg=yellow</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>343</x>
-      <y>399</y>
-      <w>69</w>
-      <h>97</h>
+      <x>336</x>
+      <y>384</y>
+      <w>98</w>
+      <h>84</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-&gt;&gt;</panel_attributes>
-    <additional_attributes>21;84;35;84;35;21;56;21</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;-&gt;&gt;
+GeoPointValues</panel_attributes>
+    <additional_attributes>42;72;54;72;54;18;72;18</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>343</x>
-      <y>378</y>
-      <w>69</w>
-      <h>34</h>
+      <x>360</x>
+      <y>354</y>
+      <w>60</w>
+      <h>42</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-&gt;&gt;</panel_attributes>
-    <additional_attributes>21;21;56;21</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;-&gt;&gt;
+int Val</panel_attributes>
+    <additional_attributes>18;30;48;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>315</x>
-      <y>238</y>
-      <w>140</w>
-      <h>84</h>
+      <x>336</x>
+      <y>246</y>
+      <w>120</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>GeoMap
 --
@@ -119,43 +121,44 @@ bg=yellow</panel_attributes>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>574</x>
-      <y>238</y>
-      <w>119</w>
-      <h>105</h>
+      <x>558</x>
+      <y>246</y>
+      <w>102</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>Controller
 Main
 --
-I don't know!
+openGlRedrawPoints
 --
-I don't know!
+addPointFromOnlineData
+
 bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>805</x>
-      <y>406</y>
-      <w>112</w>
-      <h>70</h>
+      <x>756</x>
+      <y>390</y>
+      <w>96</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>OpenGL
 --
 QList VisualisedPoints
 --
-showAllFuckingPoints
+showAllPoints
 bg=red</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>805</x>
-      <y>175</y>
-      <w>112</w>
-      <h>42</h>
+      <x>756</x>
+      <y>192</y>
+      <w>96</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Browser
 --
@@ -165,55 +168,58 @@ bg=red</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>182</x>
-      <y>273</y>
-      <w>146</w>
-      <h>34</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>133;21;21;21</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>182</x>
-      <y>294</y>
-      <w>146</w>
-      <h>34</h>
-    </coordinates>
-    <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>133;21;21;21</additional_attributes>
-  </element>
-  <element>
-    <type>com.umlet.element.Relation</type>
-    <coordinates>
-      <x>672</x>
-      <y>301</y>
-      <w>146</w>
-      <h>139</h>
+      <x>222</x>
+      <y>264</y>
+      <w>126</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
-QList Points</panel_attributes>
-    <additional_attributes>21;21;56;21;56;126;133;126</additional_attributes>
+save Json Data for JS</panel_attributes>
+    <additional_attributes>114;30;18;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>434</x>
-      <y>266</y>
-      <w>153</w>
-      <h>34</h>
+      <x>222</x>
+      <y>282</y>
+      <w>126</w>
+      <h>42</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-&gt;</panel_attributes>
-    <additional_attributes>21;21;140;21</additional_attributes>
+    <panel_attributes>lt=-&gt;
+save Json Data</panel_attributes>
+    <additional_attributes>114;30;18;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>618</x>
+      <y>300</y>
+      <w>150</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+QList &lt;GeoPoint&gt; Points</panel_attributes>
+    <additional_attributes>42;18;72;18;72;108;138;108</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>438</x>
+      <y>252</y>
+      <w>134</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;
+QList &lt;GeoPoint&gt; Points</panel_attributes>
+    <additional_attributes>18;36;72;36;72;24;120;24</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Class</type>
     <coordinates>
-      <x>343</x>
-      <y>175</y>
-      <w>112</w>
-      <h>42</h>
+      <x>360</x>
+      <y>192</y>
+      <w>96</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>Google API
 --
@@ -224,47 +230,47 @@ bg=yellow</panel_attributes>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>147</x>
-      <y>175</y>
-      <w>209</w>
-      <h>118</h>
+      <x>174</x>
+      <y>180</y>
+      <w>198</w>
+      <h>114</h>
     </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>21;105;21;21;196;21</additional_attributes>
+    <panel_attributes>lt=&lt;.
+Geo Json</panel_attributes>
+    <additional_attributes>36;102;36;30;186;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
-      <x>434</x>
-      <y>175</y>
-      <w>384</w>
-      <h>34</h>
+      <x>438</x>
+      <y>180</y>
+      <w>330</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
-</panel_attributes>
-    <additional_attributes>21;21;371;21</additional_attributes>
+analyzed Geo Json</panel_attributes>
+    <additional_attributes>18;30;318;30</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Relation</type>
     <coordinates>
       <x>462</x>
-      <y>322</y>
-      <w>222</w>
-      <h>170</h>
+      <y>318</y>
+      <w>188</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;
 GeoPointValues
-&amp;
-FirstGeoPoint</panel_attributes>
-    <additional_attributes>168;21;168;133;21;133</additional_attributes>
+</panel_attributes>
+    <additional_attributes>144;18;144;114;18;114</additional_attributes>
   </element>
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>273</x>
-      <y>126</y>
-      <w>217</w>
-      <h>399</h>
+      <x>300</x>
+      <y>150</y>
+      <w>186</w>
+      <h>342</h>
     </coordinates>
     <panel_attributes>Models
 bg=yellow</panel_attributes>
@@ -273,10 +279,10 @@ bg=yellow</panel_attributes>
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>504</x>
-      <y>126</y>
-      <w>217</w>
-      <h>399</h>
+      <x>498</x>
+      <y>150</y>
+      <w>186</w>
+      <h>342</h>
     </coordinates>
     <panel_attributes>Controllers
 bg=green</panel_attributes>
@@ -285,10 +291,10 @@ bg=green</panel_attributes>
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>735</x>
-      <y>126</y>
-      <w>217</w>
-      <h>399</h>
+      <x>696</x>
+      <y>150</y>
+      <w>186</w>
+      <h>342</h>
     </coordinates>
     <panel_attributes>Views
 bg=red</panel_attributes>
@@ -297,10 +303,10 @@ bg=red</panel_attributes>
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>49</x>
-      <y>210</y>
-      <w>203</w>
-      <h>154</h>
+      <x>108</x>
+      <y>222</y>
+      <w>174</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>Files
 bg=black</panel_attributes>
@@ -309,10 +315,10 @@ bg=black</panel_attributes>
   <element>
     <type>com.umlet.element.Package</type>
     <coordinates>
-      <x>49</x>
-      <y>371</y>
-      <w>203</w>
-      <h>154</h>
+      <x>108</x>
+      <y>360</y>
+      <w>174</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>Input Components
 bg=gray</panel_attributes>
@@ -322,10 +328,10 @@ bg=gray</panel_attributes>
     <element>
       <type>com.umlet.element.Class</type>
       <coordinates>
-        <x>133</x>
-        <y>280</y>
-        <w>70</w>
-        <h>21</h>
+        <x>180</x>
+        <y>282</y>
+        <w>60</w>
+        <h>18</h>
       </coordinates>
       <panel_attributes>Geo File
 fg=black
@@ -335,10 +341,10 @@ bg=black</panel_attributes>
     <element>
       <type>com.umlet.element.Class</type>
       <coordinates>
-        <x>133</x>
-        <y>308</y>
-        <w>70</w>
-        <h>21</h>
+        <x>180</x>
+        <y>306</y>
+        <w>60</w>
+        <h>18</h>
       </coordinates>
       <panel_attributes>Json File
 bg=black</panel_attributes>
@@ -349,10 +355,10 @@ bg=black</panel_attributes>
     <element>
       <type>com.umlet.element.Class</type>
       <coordinates>
-        <x>133</x>
-        <y>413</y>
-        <w>70</w>
-        <h>21</h>
+        <x>180</x>
+        <y>396</y>
+        <w>60</w>
+        <h>18</h>
       </coordinates>
       <panel_attributes>Arduino
 bg=gray</panel_attributes>
@@ -361,10 +367,10 @@ bg=gray</panel_attributes>
     <element>
       <type>com.umlet.element.Class</type>
       <coordinates>
-        <x>133</x>
-        <y>455</y>
-        <w>70</w>
-        <h>21</h>
+        <x>180</x>
+        <y>432</y>
+        <w>60</w>
+        <h>18</h>
       </coordinates>
       <panel_attributes>ROS
 bg=gray</panel_attributes>

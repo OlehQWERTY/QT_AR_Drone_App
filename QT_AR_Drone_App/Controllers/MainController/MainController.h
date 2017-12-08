@@ -10,13 +10,14 @@
 #include <QTimer> // timer
 #include <QObject> // someware else included
 
-class MainController : public QObject, public OnlineData//, private GeoMap
+class MainController : public QObject//, public OnlineData//, private GeoMap
 {
 private:
 
     Q_OBJECT // it is neaded for signals & slots
 
     bool mode; // true - online, false - offline
+    OnlineData Online;
     Widget OpenGLView; // view
     GeoMap Map;
     QTimer *tmr; // timer

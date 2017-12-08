@@ -1,9 +1,9 @@
 #include "MainController.h"
 
-MainController::MainController(const double &Latitude, const double &Longitude) : OnlineData()
+MainController::MainController(const double &Latitude, const double &Longitude) //: OnlineData()
 {
     openGlViewInit();
-    setZeroGeoPoint(Latitude, Longitude);
+    Online.setZeroGeoPoint(Latitude, Longitude);
 }
 
 void MainController::setMode(bool online = true) // bool online
@@ -60,7 +60,7 @@ void MainController::addPointFromOnlineData()
     GeoPointValues *pTempGeoPointValues;
     unsigned char tempColor[3] = {0, 0, 0};
 
-    pTempGeoPointValues = getOnlineData();
+    pTempGeoPointValues = Online.getOnlineData();
 
 //    if(tempCartesianX != pTempGeoPointValues->cartesianX || tempCartesianY != pTempGeoPointValues->cartesianY
 //            || tempCartesianZ != pTempGeoPointValues->cartesianZ)
@@ -68,8 +68,9 @@ void MainController::addPointFromOnlineData()
     for(int i = 0; i< 3; i++)
     {
         tempColor[i] = pTempGeoPointValues->color[i];
+        qDebug() << "tempColor[" << i << "]: " << tempColor[i]; // test
     }
-
+    //qDebug() << pTempGeoPointValues->latitude;
     Map.addPoint(pTempGeoPointValues->latitude, pTempGeoPointValues->longitude, pTempGeoPointValues->cartesianX,
                  pTempGeoPointValues->cartesianY, pTempGeoPointValues->cartesianZ, pTempGeoPointValues->timestamp, tempColor);
     Map.save();

@@ -12,7 +12,7 @@ class Widget : public QGLWidget
 {
 private:
     QList<GeoPoint> Points; // QList of Points on the Map
-    int xRotation,yRotation,zRotation; // 3D scene rotation values
+    int xRotation, yRotation, zRotation; // 3D scene rotation values
     double scale; // scaling value
     QPoint mousePos; // value for saving mouse posittion
     int w; // scene size width
@@ -40,7 +40,7 @@ protected:
 public:
     Widget(QWidget *parent = 0);
     void setSceneParam(int outW, int outH, int outGridSize);
-    void drawPoint(); // it is possible to optimise it by showing only 300 points or using glDrawArrays
+    void drawPoint(); // it is possible to optimise it by showing only 300 points or using glDrawArrays()
     void getAllPointsList(const QList<GeoPoint> &GeoMap);
 
     void showAllPoints(); // just for Debugging

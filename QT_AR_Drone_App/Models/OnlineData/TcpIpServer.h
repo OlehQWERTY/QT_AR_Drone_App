@@ -12,7 +12,7 @@ class MyTcpServer : public QObject
     Q_OBJECT
 public:
     explicit MyTcpServer(QObject *parent = 0);
-    QByteArray getLastData();
+    int getLastData() const;
 
 public slots:
     void slotNewConnection();
@@ -20,7 +20,7 @@ public slots:
     void slotClientDisconnected();
 
 private:
-    QByteArray lastReceivedData;
+    int lastReceivedData = 2;
 
     QTcpServer * mTcpServer;
     QTcpSocket * mTcpSocket;
