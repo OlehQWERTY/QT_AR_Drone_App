@@ -170,7 +170,10 @@ void Widget::keyPressEvent(QKeyEvent* ke)
     {
         case 43:
             //qDebug() << "+";
-            ++numbHighlightedPoint;
+            if(numbHighlightedPoint < Points.length())
+            {
+                ++numbHighlightedPoint;
+            }
         break;
         case 45:
             //qDebug() << "-";
@@ -219,7 +222,11 @@ void Widget::screenInfo()
     if(!Points.isEmpty())
     {
         renderText(550, vertTextPos + 80, QDateTime::fromTime_t(Points.at(0).timestamp).toString("dd/MM/yy hh:mm:ss"));
-        renderText(550, vertTextPos + 100, QDateTime::fromTime_t(Points.at(Points.size() - 1).timestamp).toString("dd/MM/yy hh:mm:ss"));
+
+        if(Points.size() != numbHighlightedPoint) // not the best solution correct it to more appropriate design
+        {
+            renderText(550, vertTextPos + 100, QDateTime::fromTime_t(Points.at(Points.size() - numbHighlightedPoint - 1).timestamp).toString("dd/MM/yy hh:mm:ss"));
+        }
 
         renderText(550, vertTextPos + 120, QString::number(numbHighlightedPoint) + " / " + QString::number(Points.length()));
         //renderText(550, vertTextPos + 140, QString::number(numbHighlightedPoint));
