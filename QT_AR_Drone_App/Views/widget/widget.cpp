@@ -162,6 +162,38 @@ void Widget::wheelEvent(QWheelEvent* pe) // mouse wheel spinning
     updateGL(); // image update
 }
 
+void Widget::keyPressEvent(QKeyEvent* ke)
+{
+    qDebug() << ke->key();
+
+    switch(ke->key())
+    {
+        case 43:
+            //qDebug() << "+";
+            ++numbHighlightedPoint;
+        break;
+        case 45:
+            //qDebug() << "-";
+            if(numbHighlightedPoint <= 0)
+            {
+                numbHighlightedPoint = 0;
+            }
+            else
+            {
+                --numbHighlightedPoint;
+            }
+        break;
+        case 48:
+            //qDebug() << "0";
+            numbHighlightedPoint = 0;
+        break;
+    }
+
+    //qDebug() << "numbHighlightedPoint" << numbHighlightedPoint;
+
+    updateGL(); // image update
+}
+
 void Widget::screenInfo()
 {
     QColor halfRed(127, 0, 0, 255);
@@ -183,10 +215,14 @@ void Widget::screenInfo()
     //qDebug() << QDateTime::fromTime_t(x);
     renderText(460, vertTextPos + 80, "Start time: ");
     renderText(460, vertTextPos + 100, "Current time: ");
+    renderText(460, vertTextPos + 120, "Point numb: ");
     if(!Points.isEmpty())
     {
         renderText(550, vertTextPos + 80, QDateTime::fromTime_t(Points.at(0).timestamp).toString("dd/MM/yy hh:mm:ss"));
         renderText(550, vertTextPos + 100, QDateTime::fromTime_t(Points.at(Points.size() - 1).timestamp).toString("dd/MM/yy hh:mm:ss"));
+
+        renderText(550, vertTextPos + 120, QString::number(numbHighlightedPoint) + " / " + QString::number(Points.length()));
+        //renderText(550, vertTextPos + 140, QString::number(numbHighlightedPoint));
     }
 
     //сітка 1 2 3 4 5 6 7 8 9 номерів квадратиків
@@ -250,31 +286,37 @@ void Widget::drawGrid()//Drowing of Fields
 
 void Widget::drawPoint()
 {
-    glPointSize(3);
-    glColor4f(0.00f, 0.00f, 0.00f, 1.0f); // set default color of the Points (in case if color wasn't declarated)
-    glBegin(GL_POINTS);
-    foreach (GeoPoint tempGeoPoint, Points) { // it is possible to optimise it by showing 300 points or using glDrawArrays
+    glPointSize(3); // 3
+    //glColor4f(0.00f, 0.00f, 0.00f, 1.0f); // set default color of the Points (in case if color wasn't declarated)
+    //glBegin(GL_POINTS);
+    foreach (GeoPoint tempGeoPoint, Points)
+    { // it is possible to optimise it by showing 300 points or using glDrawArrays
         //(show each # i =+ int(ammount points / 300) )
-        // add color
-        colorCalc(tempGeoPoint.color[0]); // ! rewrite it
-        glVertex3f(tempGeoPoint.cartesianX * cartesianScale + w / 2, tempGeoPoint.cartesianY * cartesianScale + h/2,
-                   tempGeoPoint.cartesianZ * cartesianScale); // w / 2 and h/2 set Zero position on the middle of grid
-    }
-    glEnd();
-}
+        if(tempGeoPoint.id == numbHighlightedPoint) // !!!!!!!!!!!! optimize it !!!!!!!!!!!
+        {
+            qDebug() << "tempGeoPoint.id == numbHighlightedPoint";
+            glPointSize(10);
+        }
+        else
+        {
+            glPointSize(3);
+            //qDebug() << "tempGeoPoint.id: " << tempGeoPoint.id << "numbHighlightedPoint: " << numbHighlightedPoint;
+        }
+// vvvvvvv problem with offline mode vvvvvvv
+        //glColor4f(tempGeoPoint.color[0]/255.0f, tempGeoPoint.color[1]/255.0f, tempGeoPoint.color[2]/255.0f, 1.0f);
+        glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-void Widget::colorCalc(unsigned char color) // rewrite me !!!!!!!!!!!!!!!!!!!!!!!!!!
-{
-    if(color < 127)
-    {
-        glColor4f((color + 1)/127.0, 1.0, 0, 1.0);
-        //qDebug() << (color + 1);
+
+        glBegin(GL_POINTS);
+            // add color
+            //glColor4f(tempGeoPoint.color[0]/255.0, tempGeoPoint.color[1]/255.0, tempGeoPoint.color[2]/255.0, 1.0f);
+    //        qDebug() << "openGL r g b" << tempGeoPoint.color[0]/255.0 << tempGeoPoint.color[1]/255.0 <<
+    //                    tempGeoPoint.color[2]/255.0;
+            glVertex3f(tempGeoPoint.cartesianX * cartesianScale + w / 2, tempGeoPoint.cartesianY * cartesianScale + h/2,
+                       tempGeoPoint.cartesianZ * cartesianScale); // w / 2 and h/2 set Zero position on the middle of grid
+        glEnd();
     }
-    else
-    {
-        glColor4f(1.0, 1.0 - (color + 1)/255.0, 0, 1.0);
-        //qDebug() << (color + 1);
-    }
+
 }
 
 void Widget::getAllPointsList(const QList<GeoPoint> &GeoMap)

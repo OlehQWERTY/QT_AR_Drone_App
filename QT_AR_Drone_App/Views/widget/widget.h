@@ -19,11 +19,11 @@ private:
     int h; // -//- height
     int gridSize;
     int cartesianScale = 100; // 1 m * cartesianScale = 1 * cartesianScale px on the OpenGL
+    long int numbHighlightedPoint = 0; // chose point that will be sized to big one (flight visualiser)
     // my Open GL methods for gas map app
     void screenInfo();
     void drawGrid();
     void drawAxis(); // axis shower
-    void colorCalc(unsigned char color); // change color from green to red according 0 - 255 number
 
 protected:
     // Open GL
@@ -36,6 +36,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent* pe); // mouse button is unpressed
     void mouseDoubleClickEvent(QMouseEvent* pe); // mouse double click // i don't nead it now
     void wheelEvent(QWheelEvent *);          // mouse wheel spinning
+    void keyPressEvent(QKeyEvent* ke);       // key press
 
 public:
     Widget(QWidget *parent = 0);

@@ -14,7 +14,7 @@ struct GeoPointValues
     double cartesianY = 0;
     double cartesianZ = 0;
     unsigned long int timestamp = 0;
-    unsigned char color[3] = {1, 1, 1};
+    unsigned char color[3] = {0, 0, 0};
 };
 
 #endif // GEOPOINTVALUES_H

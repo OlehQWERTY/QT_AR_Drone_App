@@ -20,7 +20,7 @@ public slots:
     void slotClientDisconnected();
 
 private:
-    int lastReceivedData = 2;
+    int lastReceivedData = 0;
 
     QTcpServer * mTcpServer;
     QTcpSocket * mTcpSocket;

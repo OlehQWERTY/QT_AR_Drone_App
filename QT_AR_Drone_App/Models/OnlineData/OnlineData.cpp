@@ -30,18 +30,14 @@ void OnlineData::sensorValToColor(int &val, const int &minTemperature, const int
     if(tempRelativeTemperature < 127)
     {
         pGeoPoint->color[0] = (tempRelativeTemperature + 1)/127.0 * 255;
-        pGeoPoint->color[1] = 1.0 * 255;
-        pGeoPoint->color[2] = 1.0 * 255;
-        //glColor4f((color + 1)/127.0, 1.0, 0, 1.0);
-        //qDebug() << (tempRelativeTemperature);
+        pGeoPoint->color[1] = 255;
+        pGeoPoint->color[2] = 0;
     }
     else
     {
-        pGeoPoint->color[0] = 1.0 * 255;
+        pGeoPoint->color[0] = 255;
         pGeoPoint->color[1] = (1.0 - (tempRelativeTemperature + 1)/256.0) * 255; // deffence (255 + 1)/255 > 1 -> 1 - 1.001 = minus number -> error
-        pGeoPoint->color[2] = 1.0 * 255;
-        //glColor4f(1.0, 1.0 - (color + 1)/255.0, 0, 1.0);
-//        qDebug() << (tempRelativeTemperature);
+        pGeoPoint->color[2] = 0;
     }
 //    qDebug() << "Color: r " << pGeoPoint->color[0] << "Color: g " << pGeoPoint->color[1] <<
 //                "Color: b " << pGeoPoint->color[2];
