@@ -147,7 +147,6 @@ void Widget::wheelEvent(QWheelEvent* pe) // mouse wheel spinning
     {
         scale = 0.65;
     }
-
     // if mouse wheel spinning + -> scale *= 1.1
     // else -> scale =/ 1.1
     if ((pe->delta())>0)
@@ -169,14 +168,14 @@ void Widget::keyPressEvent(QKeyEvent* ke)
     switch(ke->key())
     {
         case 43:
-            //qDebug() << "+";
+            //qDebug() << "pressed '+' button";
             if(numbHighlightedPoint < Points.length())
             {
                 ++numbHighlightedPoint;
             }
         break;
         case 45:
-            //qDebug() << "-";
+            //qDebug() << "pressed '-' button";
             if(numbHighlightedPoint <= 0)
             {
                 numbHighlightedPoint = 0;
@@ -187,12 +186,10 @@ void Widget::keyPressEvent(QKeyEvent* ke)
             }
         break;
         case 48:
-            //qDebug() << "0";
+            //qDebug() << "pressed '0' button";
             numbHighlightedPoint = 0;
         break;
     }
-
-    //qDebug() << "numbHighlightedPoint" << numbHighlightedPoint;
 
     updateGL(); // image update
 }
@@ -225,7 +222,7 @@ void Widget::screenInfo()
 
         if(Points.size() != numbHighlightedPoint) // not the best solution correct it to more appropriate design
         {
-            renderText(550, vertTextPos + 100, QDateTime::fromTime_t(Points.at(Points.size() - numbHighlightedPoint - 1).timestamp).toString("dd/MM/yy hh:mm:ss"));
+            renderText(550, vertTextPos + 100, QDateTime::fromTime_t(Points.at(numbHighlightedPoint).timestamp).toString("dd/MM/yy hh:mm:ss"));
         }
 
         renderText(550, vertTextPos + 120, QString::number(numbHighlightedPoint) + " / " + QString::number(Points.length()));
@@ -293,32 +290,22 @@ void Widget::drawGrid()//Drowing of Fields
 
 void Widget::drawPoint()
 {
-    glPointSize(3); // 3
-    //glColor4f(0.00f, 0.00f, 0.00f, 1.0f); // set default color of the Points (in case if color wasn't declarated)
-    //glBegin(GL_POINTS);
     foreach (GeoPoint tempGeoPoint, Points)
     { // it is possible to optimise it by showing 300 points or using glDrawArrays
         //(show each # i =+ int(ammount points / 300) )
         if(tempGeoPoint.id == numbHighlightedPoint) // !!!!!!!!!!!! optimize it !!!!!!!!!!!
         {
-            qDebug() << "tempGeoPoint.id == numbHighlightedPoint";
             glPointSize(10);
         }
         else
         {
             glPointSize(3);
-            //qDebug() << "tempGeoPoint.id: " << tempGeoPoint.id << "numbHighlightedPoint: " << numbHighlightedPoint;
         }
-// vvvvvvv problem with offline mode vvvvvvv
-        //glColor4f(tempGeoPoint.color[0]/255.0f, tempGeoPoint.color[1]/255.0f, tempGeoPoint.color[2]/255.0f, 1.0f);
-        glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-
+        QColor pointColor(tempGeoPoint.color[0], tempGeoPoint.color[1], tempGeoPoint.color[2], 255);
+        qglColor(pointColor); // set point color
         glBegin(GL_POINTS);
-            // add color
-            //glColor4f(tempGeoPoint.color[0]/255.0, tempGeoPoint.color[1]/255.0, tempGeoPoint.color[2]/255.0, 1.0f);
-    //        qDebug() << "openGL r g b" << tempGeoPoint.color[0]/255.0 << tempGeoPoint.color[1]/255.0 <<
-    //                    tempGeoPoint.color[2]/255.0;
+
             glVertex3f(tempGeoPoint.cartesianX * cartesianScale + w / 2, tempGeoPoint.cartesianY * cartesianScale + h/2,
                        tempGeoPoint.cartesianZ * cartesianScale); // w / 2 and h/2 set Zero position on the middle of grid
         glEnd();

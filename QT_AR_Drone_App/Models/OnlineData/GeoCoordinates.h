@@ -26,6 +26,11 @@ private:
     double odometryX = 0;
     double odometryY = 0;
     double odometryZ = 0;
+    // init data neads for correction crazy AR.Drone sensors (sometimes it returnes very big init val != 0)
+    double startOdometryX = 0; // use it
+    double startOdometryY = 0;
+    double startOdometryZ = 0;
+
 
     GeoPointValues *pGeoPoint = NULL;
 
@@ -35,7 +40,7 @@ private:
     QString readFromFile(QString);
     void parseOdometry(QString);
 public:
-    GeoCoordinates(); // it was added because of next level is wrapper
+    GeoCoordinates(); // it was added because of next level is wrapper (hereditary class)
     GeoCoordinates(double, double);
     void setZeroGeoPoint(double, double);
     ~GeoCoordinates();
