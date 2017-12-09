@@ -10,7 +10,7 @@
 #include <QTimer> // timer
 #include <QObject> // someware else included
 
-class MainController : public QObject//, public OnlineData//, private GeoMap
+class MainController : public QObject
 {
 private:
 
@@ -22,15 +22,17 @@ private:
     GeoMap Map;
     QTimer *tmr; // timer
     QString fileName;
+    double minTemperature = 0;
+    double maxTemperature = 0;
 
     void setOnlineMode();
     void setOfflineMode();
 
 public:
-    MainController(const double &Latitude, const double &Longitude);
+    MainController(const double &Latitude, const double &Longitude, const double &minSensorVal, const double &maxSensorVal);
     void openGlViewInit();
     void openGlRedrawPoints();
-    void addPointFromOnlineData();
+    void addPointFromOnlineData(const int &minTemperature, const int &maxTemperature);
     void setFileName(QString tempFileName);
     void setMode(bool online); // bool - online
 

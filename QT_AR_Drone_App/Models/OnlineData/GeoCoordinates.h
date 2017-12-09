@@ -27,9 +27,10 @@ private:
     double odometryY = 0;
     double odometryZ = 0;
     // init data neads for correction crazy AR.Drone sensors (sometimes it returnes very big init val != 0)
-    double startOdometryX = 0; // use it
-    double startOdometryY = 0;
-    double startOdometryZ = 0;
+    double initOdometryX = 0; // use it
+    double initOdometryY = 0;
+    double initOdometryZ = 0;
+    bool firstData = false;
 
 
     GeoPointValues *pGeoPoint = NULL;
@@ -39,6 +40,8 @@ private:
     double geoPointToCartesian(double); // I don't use it. Additional func! It is for providing GeoCoordinatesToCartesian functionality
     QString readFromFile(QString);
     void parseOdometry(QString);
+
+    void crazySensorCorection();
 public:
     GeoCoordinates(); // it was added because of next level is wrapper (hereditary class)
     GeoCoordinates(double, double);

@@ -11,7 +11,7 @@ Widget::Widget(QWidget *parent) // constructor
     scale = 0.6; // default scale
 }
 
-void Widget::setSceneParam(int outW, int outH, int outGridSize)
+void Widget::setSceneParam(int outW, int outH, int outGridSize) // correct it to more apropriate solution
 {
     w = outW;
     h = outH;
@@ -138,7 +138,7 @@ void Widget::drawAxis()
 
 void Widget::wheelEvent(QWheelEvent* pe) // mouse wheel spinning
 {
-    // keep scale in 0.3 - 0.8 range
+    // keep scale in 0.3 - 0.65 range
     if(scale <= 0.3)
     {
         scale = 0.3;
@@ -216,30 +216,51 @@ void Widget::screenInfo()
     renderText(460, vertTextPos + 80, "Start time: ");
     renderText(460, vertTextPos + 100, "Current time: ");
     renderText(460, vertTextPos + 120, "Point numb: ");
+    // 1 grid box px scale
+    renderText(10, vertTextPos, "1 grid box: ");
+    renderText(90, vertTextPos, QString::number(float(gridSize)/cartesianScale) + " m");
+
+        qDebug() << "gridSize" << gridSize;
+        qDebug() << "cartesianScale" << cartesianScale;
+
     if(!Points.isEmpty())
     {
         renderText(550, vertTextPos + 80, QDateTime::fromTime_t(Points.at(0).timestamp).toString("dd/MM/yy hh:mm:ss"));
+        renderText(550, vertTextPos + 120, QString::number(numbHighlightedPoint) + " / " + QString::number(Points.length()));
 
         if(Points.size() != numbHighlightedPoint) // not the best solution correct it to more appropriate design
         {
             renderText(550, vertTextPos + 100, QDateTime::fromTime_t(Points.at(numbHighlightedPoint).timestamp).toString("dd/MM/yy hh:mm:ss"));
-        }
 
-        renderText(550, vertTextPos + 120, QString::number(numbHighlightedPoint) + " / " + QString::number(Points.length()));
-        //renderText(550, vertTextPos + 140, QString::number(numbHighlightedPoint));
+            renderText(460, vertTextPos + 140, "Sensor val: ");
+            // point value text
+            QColor pointColor(Points.at(numbHighlightedPoint).color[0], Points.at(numbHighlightedPoint).color[1],
+                    Points.at(numbHighlightedPoint).color[2], 255);
+            qglColor(pointColor); // set point value text color
+            if(Points.at(numbHighlightedPoint).color[0] < 255)
+            {
+                renderText(550, vertTextPos + 140, QString::number((Points.at(numbHighlightedPoint).color[0] / 2) - 1) + " / 255");
+            }
+            else
+            {
+                renderText(550, vertTextPos + 140, QString::number(255 - Points.at(numbHighlightedPoint).color[1] - 1) + " / 255");
+            }
+        }
     }
 
     //сітка 1 2 3 4 5 6 7 8 9 номерів квадратиків
-//    double scaleCoof = scale * 1.66666666666666666666666;
-//    if((xRotation == 90 || xRotation == -90 || xRotation == 0) &&
-//            (zRotation == 90 || zRotation == -90 || zRotation == 0))
-//    {
-//        for(int i = 0; i < 10; i++)
-//        {
+    double scaleCoof = scale * 1.66666666666666666666666;
+    if((xRotation == 90 || xRotation == -90 || xRotation == 0) &&
+            (zRotation == 90 || zRotation == -90 || zRotation == 0) &&
+            scaleCoof > 0.9 && scaleCoof < 1.05)
+    {
+        for(int i = 0; i <= 10; i++)
+        {
 
-//            renderText(200*2 - 200 * scaleCoof, 200*2 - 20 * scaleCoof - 200 * scaleCoof + 35 * i * scaleCoof/*+ (gridSize * scale * 0.75) * i*/, QString::number(i));
-//        }
-//    }
+            renderText(160, 190 + 33.5 * i, QString::number(i)); // along Y
+            renderText(180 + 33.5 * i, 545, QString::number(i)); // along X
+        }
+    }
 
 }
 

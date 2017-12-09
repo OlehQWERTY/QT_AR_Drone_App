@@ -62,6 +62,25 @@ void GeoCoordinates::parseOdometry(QString line)
     odometryX = line.section(',', 1, 1).toDouble();
     odometryY = line.section(',', 2, 2).toDouble();
     odometryZ = line.section(',', 3, 3).toDouble();
+
+    crazySensorCorection();
+}
+
+void GeoCoordinates::crazySensorCorection() // AR.Drone crazy position sensors correction
+{
+    if(!firstData)
+    {
+        initOdometryX = odometryX;
+        initOdometryY = odometryY;
+        initOdometryZ = odometryZ;
+        firstData = true;
+    }
+    else
+    {
+        odometryX -= initOdometryX;
+        odometryY -= initOdometryY;
+        odometryZ -= initOdometryZ;
+    }
 }
 
 GeoPointValues *GeoCoordinates::odometryToGeo()

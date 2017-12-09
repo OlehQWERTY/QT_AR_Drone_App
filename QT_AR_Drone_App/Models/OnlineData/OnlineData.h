@@ -31,7 +31,7 @@ private:
 public:
 
     OnlineData();
-    GeoPointValues *getOnlineData();
+    GeoPointValues *getOnlineData(const int &, const int &);
     void setZeroGeoPoint(double, double);
 
 };

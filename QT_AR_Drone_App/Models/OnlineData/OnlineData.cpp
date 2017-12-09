@@ -1,10 +1,7 @@
 #include "OnlineData.h"
 
-//#include <iostream> // test
-
 OnlineData::OnlineData()
 {
-    //qDebug() << "OnlineData constructor";
 }
 
 void OnlineData::sensorValToColor(int &val, const int &minTemperature, const int &maxTemperature) // test me !!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -15,16 +12,17 @@ void OnlineData::sensorValToColor(int &val, const int &minTemperature, const int
     if(val < minTemperature * coefficient)
     {
         val = minTemperature * coefficient;
+        qDebug() << "Temperature value out of min range!";
     }
     else if(val > maxTemperature * coefficient)
     {
         val = maxTemperature * coefficient;
+        qDebug() << "Temperature value out of max range!";
     }
 
-
-    int delta = (val - minTemperature) * coefficient;
-    float step = delta / coefficient / 255.0; // convert to uchar
-    unsigned char tempRelativeTemperature = (val - minTemperature * coefficient) / coefficient * step;
+    int delta = (val - minTemperature * coefficient) / coefficient;
+    float step = (maxTemperature - minTemperature) / 255.0; // convert to uchar          delta / coefficient / 255.0
+    unsigned char tempRelativeTemperature = delta / step;
     qDebug() << "tempRelativeTemperature: " << tempRelativeTemperature;
 
     if(tempRelativeTemperature < 127)
@@ -43,7 +41,7 @@ void OnlineData::sensorValToColor(int &val, const int &minTemperature, const int
 //                "Color: b " << pGeoPoint->color[2];
 }
 
-GeoPointValues *OnlineData::getOnlineData()
+GeoPointValues *OnlineData::getOnlineData(const int &minTemperature, const int &maxTemperature)
 {
     pGeoPoint = GeoCoord.odometryToGeo();
 
@@ -51,7 +49,7 @@ GeoPointValues *OnlineData::getOnlineData()
     // color val (char[3])
     int tempSensorVal = TcpServer.getLastData(); // QByteArray return TcpServer -> TcpServer.getLastData().toInt(&ok)
 
-    sensorValToColor(tempSensorVal, 20, 40); // correct according to sensor type and temperature
+    sensorValToColor(tempSensorVal, minTemperature, maxTemperature); // automatic correction according to sensor temperature
     qDebug() << "OnlineData: " << tempSensorVal;
 
     return pGeoPoint;

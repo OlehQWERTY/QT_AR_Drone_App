@@ -1,9 +1,12 @@
 #include "MainController.h"
 
-MainController::MainController(const double &Latitude, const double &Longitude) //: OnlineData()
+MainController::MainController(const double &Latitude, const double &Longitude, const double &minSensorVal, const double &maxSensorVal)
 {
     openGlViewInit();
     Online.setZeroGeoPoint(Latitude, Longitude);
+    // auto color level in Online data
+    minTemperature = minSensorVal;
+    maxTemperature = maxSensorVal;
 }
 
 void MainController::setMode(bool online = true) // bool online
@@ -55,15 +58,12 @@ void MainController::openGlRedrawPoints()
    //OpenGLView.showAllPoints();
 }
 
-void MainController::addPointFromOnlineData()
+void MainController::addPointFromOnlineData(const int &minTemperature, const int &maxTemperature)
 {
     GeoPointValues *pTempGeoPointValues;
     unsigned char tempColor[3] = {0, 0, 0};
 
-    pTempGeoPointValues = Online.getOnlineData();
-
-//    if(tempCartesianX != pTempGeoPointValues->cartesianX || tempCartesianY != pTempGeoPointValues->cartesianY
-//            || tempCartesianZ != pTempGeoPointValues->cartesianZ)
+    pTempGeoPointValues = Online.getOnlineData(minTemperature, maxTemperature);
 
     for(int i = 0; i< 3; i++)
     {
@@ -91,7 +91,7 @@ void MainController::addPointFromOnlineData()
 
 void MainController::updateTime() // timer slot
 {
-    addPointFromOnlineData();
+    addPointFromOnlineData(minTemperature, maxTemperature);
     openGlRedrawPoints();
     OpenGLView.updateGL(); // update open GL scene
 }
