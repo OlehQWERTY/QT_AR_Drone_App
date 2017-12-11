@@ -36,8 +36,8 @@ private:
     GeoPointValues *pGeoPoint = NULL;
 
     //void setZeroGeoPoint(double, double);
-    double cartesianPointToGeo(double, double);
-    double geoPointToCartesian(double); // I don't use it. Additional func! It is for providing GeoCoordinatesToCartesian functionality
+    double cartesianPointToGeo(double, double) const;
+    double geoPointToCartesian(double) const; // I don't use it. Additional func! It is for providing GeoCoordinatesToCartesian functionality
     QString readFromFile(QString);
     void parseOdometry(QString);
 

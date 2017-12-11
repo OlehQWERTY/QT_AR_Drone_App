@@ -45,7 +45,7 @@ GeoPointValues GeoMap::getPoint(int number)
     //and return * NULL if number > GeoMap.getLength
 }
 
-int GeoMap::getLength()
+int GeoMap::getLength() const
 {
     int length = 0;
     foreach (GeoPoint tempGeoPoint, Points) {
@@ -277,12 +277,12 @@ void GeoMap::saveToFile(bool geo) // if true - save to geo as Js func, else - or
     F.close();
 }
 
-QList<GeoPoint> GeoMap::getAllPointsList()
+QList<GeoPoint> GeoMap::getAllPointsList() const
 {
     return Points;
 }
 
-void GeoMap::showAllPoints()
+void GeoMap::showAllPoints() const
 {
     foreach (GeoPoint tempGeoPoint, Points) {
         qDebug() << "Latitude   " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.latitude;

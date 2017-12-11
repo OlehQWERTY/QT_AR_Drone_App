@@ -29,7 +29,7 @@ void Widget::setSceneParam(int outW, int outH, int outGridSize) // correct it to
     }
 }
  
-void Widget::initializeGL()
+void Widget::initializeGL() const
 {
    qglClearColor(Qt::black); // filling screen with black color (background color)
    glEnable(GL_DEPTH_TEST);
@@ -105,16 +105,16 @@ void Widget::mouseMoveEvent(QMouseEvent* pe) // mouse arrow position is changed
     updateGL(); // image update
 }
 
-void Widget::mouseDoubleClickEvent(QMouseEvent *pe)
+void Widget::mouseDoubleClickEvent(QMouseEvent *pe) const
 {
     //qDebug() << "Double click!";
 }
 
-void Widget::mouseReleaseEvent(QMouseEvent *pe)
+void Widget::mouseReleaseEvent(QMouseEvent *pe) const
 {
 }
 
-void Widget::drawAxis()
+void Widget::drawAxis() const
 {
     glLineWidth(4.0f); // set line width
 
@@ -220,8 +220,8 @@ void Widget::screenInfo()
     renderText(10, vertTextPos, "1 grid box: ");
     renderText(90, vertTextPos, QString::number(float(gridSize)/cartesianScale) + " m");
 
-        qDebug() << "gridSize" << gridSize;
-        qDebug() << "cartesianScale" << cartesianScale;
+//        qDebug() << "gridSize" << gridSize;
+//        qDebug() << "cartesianScale" << cartesianScale;
 
     if(!Points.isEmpty())
     {
@@ -245,6 +245,13 @@ void Widget::screenInfo()
             {
                 renderText(550, vertTextPos + 140, QString::number(255 - Points.at(numbHighlightedPoint).color[1] - 1) + " / 255");
             }
+            // odometry of current point
+            renderText(550, vertTextPos - 500, QString::number(Points.at(numbHighlightedPoint).cartesianX));
+            renderText(520, vertTextPos - 500, "X: ");
+            renderText(550, vertTextPos - 480, QString::number(Points.at(numbHighlightedPoint).cartesianY));
+            renderText(520, vertTextPos - 480, "Y: ");
+            renderText(550, vertTextPos - 460, QString::number(Points.at(numbHighlightedPoint).cartesianZ));
+            renderText(520, vertTextPos - 460, "Z: ");
         }
     }
 
@@ -264,7 +271,7 @@ void Widget::screenInfo()
 
 }
 
-void Widget::drawGrid()//Drowing of Fields
+void Widget::drawGrid() const //Drowing of Fields
 {
     glLineWidth(1.0f); // set line width
     glColor3f(0.1, 0.1, 0.1); // color of Fields
@@ -309,7 +316,7 @@ void Widget::drawGrid()//Drowing of Fields
     glEnd();
 }
 
-void Widget::drawPoint()
+void Widget::drawPoint() const
 {
     foreach (GeoPoint tempGeoPoint, Points)
     { // it is possible to optimise it by showing 300 points or using glDrawArrays
@@ -339,7 +346,7 @@ void Widget::getAllPointsList(const QList<GeoPoint> &GeoMap)
     Points = GeoMap;
 }
 
-void Widget::showAllPoints() // just for Debugging
+void Widget::showAllPoints() const  // just for Debugging
 {
     foreach (GeoPoint tempGeoPoint, Points) {
         qDebug() << "Latitude   " << "[" << tempGeoPoint.id << "]" << tempGeoPoint.latitude;

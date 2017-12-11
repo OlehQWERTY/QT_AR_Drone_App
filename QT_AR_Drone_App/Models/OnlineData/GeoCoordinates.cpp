@@ -22,7 +22,7 @@ void GeoCoordinates::setZeroGeoPoint(double outZeroDegLatitude, double outZeroDe
     zeroDegLongitude = outZeroDegLongitude;
 }
 
-double GeoCoordinates::cartesianPointToGeo(double outGeoValue, double outCartesianVal) // outGeoValue - latitude or longitude
+double GeoCoordinates::cartesianPointToGeo(double outGeoValue, double outCartesianVal) const // outGeoValue - latitude or longitude
 {
     // we think it as 0 0 cartesian point (along latitude or longitude)
     double approxCartesianVal = (PI * outGeoValue * R)/180; // latitude or longitude convert to cartesian
@@ -32,7 +32,7 @@ double GeoCoordinates::cartesianPointToGeo(double outGeoValue, double outCartesi
     return (180 * approxCartesianChanged) / (PI * R);
 }
 
-double GeoCoordinates::geoPointToCartesian(double outGeoValue) // outGeoValue - latitude or longitude
+double GeoCoordinates::geoPointToCartesian(double outGeoValue) const // outGeoValue - latitude or longitude
 {
     // we think it as 0 0 cartesian point (along latitude or longitude)
     double approxCartesianVal = (PI * outGeoValue * R)/180; // latitude or longitude convert to cartesian

@@ -37,15 +37,15 @@ public:
     GeoPointValues getFirst();
     GeoPointValues getLast();
     GeoPointValues getPoint(int);
-    int getLength();
+    int getLength() const;
     void convertJsonToPoints(QString); // (21_11_17_13_52_36.json) read all Points from Json and load Points from Json file (for ofline mode)
     void save(); // saveToFile(false) - save Json
     void mapUpdate(); // saveToFile(true) - save geo_json.json for JS script Google maps API
 
     // test return QList<GeoPoint> Points;
-    QList<GeoPoint> getAllPointsList(); // it is neaded for sending all points to View part of App
+    QList<GeoPoint> getAllPointsList() const; // it is neaded for sending all points to View part of App
 
-    void showAllPoints(); // just for Debugging
+    void showAllPoints() const; // just for Debugging
     void showJson(); // just for Debugging
 };
 
