@@ -2,6 +2,7 @@
 #define DIALOG_H
 
 #include <QDialog>
+#include "appinitdata.h" // struct for returning init data from gialog window
 
 namespace Ui {
 class Dialog;
@@ -14,6 +15,8 @@ class Dialog : public QDialog
 public:
     explicit Dialog(QWidget *parent = 0);
     ~Dialog();
+    AppInitData AppData; // struct for saving init data from dialog wimdow
+    AppInitData &returnAppData(); // return
 
 protected slots:
     void onlineButtonClicked();

@@ -21,7 +21,8 @@ HEADERS += \
     Controllers/MainController/MainController.h \
     Models/OnlineData/TcpIpServer.h \
     Views/dialog/dialog.h \
-    Views/inputError/inputerror.h
+    Views/inputError/inputerror.h \
+    Views/dialog/appinitdata.h
 
 SOURCES += \
     Models/GeoMap/GeoMap.cpp \

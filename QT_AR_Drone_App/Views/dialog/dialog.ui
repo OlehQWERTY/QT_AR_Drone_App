@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>210</height>
+    <height>230</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>400</width>
-    <height>210</height>
+    <height>230</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>400</width>
-    <height>210</height>
+    <height>230</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@
      <x>6</x>
      <y>10</y>
      <width>391</width>
-     <height>200</height>
+     <height>210</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -109,6 +109,30 @@
       </item>
       <item>
        <widget class="QLineEdit" name="longitudeLine"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>minT:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="minTLine"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>maxT:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="maxTLine"/>
       </item>
      </layout>
     </item>

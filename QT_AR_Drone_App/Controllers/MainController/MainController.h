@@ -24,20 +24,22 @@ private:
     GeoMap Map;
     QTimer *tmr; // timer
     QString fileName;
+    AppInitData AppData; // struct for saving init data from dialog wimdow
     double minTemperature = 0;
     double maxTemperature = 0;
 
     void setOnlineMode();
     void setOfflineMode();
+    void getDataFromDialog();
 
 public:
-    MainController(const double &Latitude, const double &Longitude, const double &minSensorVal, const double &maxSensorVal);
+    MainController(/*const double &Latitude, const double &Longitude, const double &minSensorVal, const double &maxSensorVal*/);
     void openGlViewInit();
     void userDialogInit();
     void openGlRedrawPoints();
     void addPointFromOnlineData(const int &minTemperature, const int &maxTemperature);
     void setFileName(QString tempFileName);
-    void setMode(bool online); // bool - online
+    void initApp(/*bool online*/); // bool - online
 
 public slots:
     void updateTime(); // slot for timer
