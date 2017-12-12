@@ -236,6 +236,7 @@ void GeoMap::readFromFile(QString tempFileName) // 21_11_17_13_52_36.json
     QString val; // temp var
     QFile file;
     file.setFileName("Json/" + tempFileName); // QFile F("./Json_files/" + fileName);
+    qDebug() << "tempFileName: " << tempFileName;
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     val = file.readAll();
     file.close();

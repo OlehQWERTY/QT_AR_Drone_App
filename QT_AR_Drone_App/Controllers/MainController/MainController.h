@@ -33,13 +33,14 @@ private:
     void getDataFromDialog();
 
 public:
-    MainController(const double &Latitude, const double &Longitude, const double &minSensorVal, const double &maxSensorVal);
+    MainController(const int&); // doesn't work if I call constructor without parameters MainController() (the base class
+    //constructor is called to initialize the base class members and then the derived class constructor
     void openGlViewInit();
     void userDialogInit();
     void openGlRedrawPoints();
     void addPointFromOnlineData(const int &minTemperature, const int &maxTemperature);
     void setFileName(QString tempFileName);
-    void initApp(bool online); // bool - online
+    void initApp(/*bool online*/); // bool - online
 
 public slots:
     void updateTime(); // slot for timer

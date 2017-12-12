@@ -40,6 +40,7 @@ void Dialog::startButtonClicked() // ___________________________________________
    if(!AppData.mode) // offline mode
     {
         tempText = ui->filePathLine->text(); // get Path
+        AppData.fileName = tempText;
         qDebug() << "TempText: " << tempText;
     }
 //    bool ok = false;

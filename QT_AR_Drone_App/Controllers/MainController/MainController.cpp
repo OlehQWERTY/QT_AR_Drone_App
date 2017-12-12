@@ -1,42 +1,31 @@
 #include "MainController.h"
 
-MainController::MainController(const double &Latitude, const double &Longitude, const double &minSensorVal, const double &maxSensorVal)
+MainController::MainController(int const &notused)
 {
+    qDebug() << "MainController";
     UDialog = new Dialog;
     userDialogInit();
 
     connect(UDialog, SIGNAL(StartPressed()),this,SLOT(userLunchedApp())); // start (dialog.h) clicked - lunch View from widget.h
-
-    // move init from constructor to separated method (initParameters()) -> inheriatate GeoPointValues + add bool mode
-    //(online or offline) + double minSensorVal and maxSensorVal
-
-    // read data from dialog fields and use it in initParameters()
-
-    // launch inputError when data is incorrect
-    Online.setZeroGeoPoint(Latitude, Longitude);
-    // auto color level in Online data
-    minTemperature = minSensorVal;
-    maxTemperature = maxSensorVal;
-
 }
 
-void MainController::initApp(bool online = true) // bool online
+void MainController::initApp(/*bool online = true*/) // bool online
 {
-    //getDataFromDialog(); // get data from dialog
-//    Online.setZeroGeoPoint(AppData.latitude, AppData.longitude);
-//    Online.setZeroGeoPoint(AppData.latitude, AppData.longitude);
-//    // auto color level in Online data
-//    minTemperature = AppData.minT;
-//    maxTemperature = AppData.maxT;
+    getDataFromDialog(); // get data from dialog
+    Online.setZeroGeoPoint(AppData.latitude, AppData.longitude);
+    Online.setZeroGeoPoint(AppData.latitude, AppData.longitude);
+    // auto color level in Online data
+    minTemperature = AppData.minT;
+    maxTemperature = AppData.maxT;
 
-    if(online/*AppData.mode*/)
+    if(AppData.mode)
     {
         setOnlineMode();
     }
     else
     {
+        setFileName(AppData.fileName); // test + add cheaking correction
         setOfflineMode();
-        //setFileName(AppData.fileName); // test + add cheaking correction
     }
 }
 
@@ -58,18 +47,9 @@ void MainController::setOfflineMode() // connected with GeoMap
     OpenGLView.updateGL(); // update open GL scene
 }
 
-void MainController::getDataFromDialog() //___________________________________________________!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void MainController::getDataFromDialog()
 {
     AppData = UDialog->returnAppData();
-//    if(AppData.mode)
-//    {
-//        qDebug() << "Online Mode";
-//    }
-//    else
-//    {
-//        qDebug() << "Offline Mode";
-//    }
-    // add rest of fields
 }
 
 void MainController::setFileName(QString tempFileName)
@@ -136,11 +116,11 @@ void MainController::updateTime() // timer slot
     OpenGLView.updateGL(); // update open GL scene
 }
 
-void MainController::userLunchedApp() //
+void MainController::userLunchedApp() // MainController gets signal Start Button clicked from dialog
 {
     getDataFromDialog();
 
-    initApp(); // test
+    initApp();
 
     UDialog->close(); // move it to more appropriate place
     delete UDialog; // move it to more appropriate place
