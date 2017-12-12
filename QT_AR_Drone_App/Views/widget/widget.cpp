@@ -333,8 +333,8 @@ void Widget::drawPoint() const
         QColor pointColor(tempGeoPoint.color[0], tempGeoPoint.color[1], tempGeoPoint.color[2], 255);
         qglColor(pointColor); // set point color
         glBegin(GL_POINTS);
-
-            glVertex3f(tempGeoPoint.cartesianX * cartesianScale + w / 2, tempGeoPoint.cartesianY * cartesianScale + h/2,
+            //if(tempGeoPoint.cartesianZ > 0.2)
+            glVertex3f((tempGeoPoint.cartesianX /*- 7*/) * cartesianScale + w / 2, (tempGeoPoint.cartesianY /*- 12*/) * cartesianScale + h/2,
                        tempGeoPoint.cartesianZ * cartesianScale); // w / 2 and h/2 set Zero position on the middle of grid
         glEnd();
     }
