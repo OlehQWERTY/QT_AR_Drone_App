@@ -2,7 +2,15 @@
 
 MainController::MainController(const double &Latitude, const double &Longitude, const double &minSensorVal, const double &maxSensorVal)
 {
-    openGlViewInit();
+    UDialog = new Dialog;
+    connect(UDialog, SIGNAL(StartPressed()),this,SLOT(userLunchedApp())); // start (dialog.h) clicked - lunch View from widget.h
+    userDialogInit();
+
+    // move init from constructor to separated method (initParameters()) -> inheriatate GeoPointValues + add bool mode
+    //(online or offline) + double minSensorVal and maxSensorVal
+
+    // read data from dialog fields and use it in initParameters()
+
     Online.setZeroGeoPoint(Latitude, Longitude);
     // auto color level in Online data
     minTemperature = minSensorVal;
@@ -52,6 +60,13 @@ void MainController::openGlViewInit()
     OpenGLView.show();
 }
 
+void MainController::userDialogInit()
+{
+    UDialog->setWindowTitle("Settings");
+    UDialog->setWindowIcon(QIcon("myappico.ico")); // app icon
+    UDialog->show();
+}
+
 void MainController::openGlRedrawPoints()
 {
    OpenGLView.getAllPointsList(Map.getAllPointsList()); // add send it to View
@@ -94,4 +109,13 @@ void MainController::updateTime() // timer slot
     addPointFromOnlineData(minTemperature, maxTemperature);
     openGlRedrawPoints();
     OpenGLView.updateGL(); // update open GL scene
+}
+
+void MainController::userLunchedApp() //
+{
+    UDialog->close(); // move it to more appropriate place
+    delete UDialog; // move it to more appropriate place
+
+    openGlViewInit(); // start widget (OpenGL view)
+    //qDebug() << "MainController get signal Start Button clicked from dialog!";
 }

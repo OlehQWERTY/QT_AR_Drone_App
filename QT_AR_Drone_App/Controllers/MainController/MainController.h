@@ -6,6 +6,7 @@
 #include "../../Models/OnlineData/OnlineData.h"
 #include "../../Views/widget/widget.h"
 #include "../../Models/GeoMap/GeoMap.h"
+#include "../../Views/dialog/dialog.h"
 
 #include <QTimer> // timer
 #include <QObject> // someware else included
@@ -19,6 +20,7 @@ private:
     bool mode; // true - online, false - offline
     OnlineData Online;
     Widget OpenGLView; // view
+    Dialog *UDialog; // view (it sets first parameters)
     GeoMap Map;
     QTimer *tmr; // timer
     QString fileName;
@@ -31,6 +33,7 @@ private:
 public:
     MainController(const double &Latitude, const double &Longitude, const double &minSensorVal, const double &maxSensorVal);
     void openGlViewInit();
+    void userDialogInit();
     void openGlRedrawPoints();
     void addPointFromOnlineData(const int &minTemperature, const int &maxTemperature);
     void setFileName(QString tempFileName);
@@ -38,6 +41,7 @@ public:
 
 public slots:
     void updateTime(); // slot for timer
+    void userLunchedApp(); // slot subscribed to dialog start button clicked
 };
 
 #endif // MAINCONTROLLER_H
