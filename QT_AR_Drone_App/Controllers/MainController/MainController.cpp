@@ -1,13 +1,11 @@
 #include "MainController.h"
 
-MainController::MainController(/*const double &Latitude, const double &Longitude, const double &minSensorVal, const double &maxSensorVal*/)
+MainController::MainController(const double &Latitude, const double &Longitude, const double &minSensorVal, const double &maxSensorVal)
 {
     UDialog = new Dialog;
     userDialogInit();
 
     connect(UDialog, SIGNAL(StartPressed()),this,SLOT(userLunchedApp())); // start (dialog.h) clicked - lunch View from widget.h
-
-    UDialog->show();
 
     // move init from constructor to separated method (initParameters()) -> inheriatate GeoPointValues + add bool mode
     //(online or offline) + double minSensorVal and maxSensorVal
@@ -15,26 +13,30 @@ MainController::MainController(/*const double &Latitude, const double &Longitude
     // read data from dialog fields and use it in initParameters()
 
     // launch inputError when data is incorrect
+    Online.setZeroGeoPoint(Latitude, Longitude);
+    // auto color level in Online data
+    minTemperature = minSensorVal;
+    maxTemperature = maxSensorVal;
 
 }
 
-void MainController::initApp(/*bool online = true*/) // bool online
+void MainController::initApp(bool online = true) // bool online
 {
-    getDataFromDialog(); // get data from dialog
+    //getDataFromDialog(); // get data from dialog
 //    Online.setZeroGeoPoint(AppData.latitude, AppData.longitude);
-    Online.setZeroGeoPoint(AppData.latitude, AppData.longitude);
-    // auto color level in Online data
-    minTemperature = AppData.minT;
-    maxTemperature = AppData.maxT;
+//    Online.setZeroGeoPoint(AppData.latitude, AppData.longitude);
+//    // auto color level in Online data
+//    minTemperature = AppData.minT;
+//    maxTemperature = AppData.maxT;
 
-    if(AppData.mode)
+    if(online/*AppData.mode*/)
     {
         setOnlineMode();
     }
     else
     {
         setOfflineMode();
-        setFileName(AppData.fileName); // test + add cheaking correction
+        //setFileName(AppData.fileName); // test + add cheaking correction
     }
 }
 
