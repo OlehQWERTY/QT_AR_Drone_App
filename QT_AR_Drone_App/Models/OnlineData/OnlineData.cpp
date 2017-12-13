@@ -59,3 +59,8 @@ void OnlineData::setZeroGeoPoint(double outZeroDegLatitude, double outZeroDegLon
 {
     GeoCoord.setZeroGeoPoint(outZeroDegLatitude, outZeroDegLongitude);
 }
+
+bool OnlineData::isLaunched() const // it is neaded for MainController (is server is not started error message)
+{
+    return TcpServer.isLaunched();
+}

@@ -34,6 +34,8 @@ public:
     GeoPointValues *getOnlineData(const int &, const int &);
     void setZeroGeoPoint(double, double);
 
+    bool isLaunched() const; // based on isLaunched method from TcpIpServer class
+
 };
 
 #endif // ONLINEDATA_H

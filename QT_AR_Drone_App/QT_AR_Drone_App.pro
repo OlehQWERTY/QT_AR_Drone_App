@@ -10,6 +10,7 @@ CONFIG += c++11
 #CONFIG = console # default ubuntu console
 
 RC_ICONS = myappico.ico # add app icon
+RC_ICONS = errorico.ico # add error icon
 
 HEADERS += \
     Models/GeoMap/GeoMap.h \
@@ -22,7 +23,8 @@ HEADERS += \
     Models/OnlineData/TcpIpServer.h \
     Views/dialog/dialog.h \
     Views/inputError/inputerror.h \
-    Views/dialog/appinitdata.h
+    Views/dialog/appinitdata.h \
+    Views/serverConnectionError/serverConnectionError.h
 
 SOURCES += \
     Models/GeoMap/GeoMap.cpp \
@@ -34,8 +36,10 @@ SOURCES += \
     Controllers/MainController/MainController.cpp \
     Models/OnlineData/TcpIpServer.cpp \
     Views/dialog/dialog.cpp \
-    Views/inputError/inputerror.cpp
+    Views/inputError/inputerror.cpp \
+    Views/serverConnectionError/serverConnectionError.cpp
 
 FORMS += \
     Views/dialog/dialog.ui \
-    Views/inputError/inputerror.ui
+    Views/inputError/inputerror.ui \
+    Views/serverConnectionError/serverConnectionError.ui

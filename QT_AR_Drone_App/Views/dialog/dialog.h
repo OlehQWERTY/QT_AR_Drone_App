@@ -27,7 +27,8 @@ signals:
 
 private:
     Ui::Dialog *ui;
-    void disableFilePathLineEdit(bool);
+    void disableLineEdit(bool);
+    void getDataFromDialogForm(); //get data from input fielsd of dialog
 };
 
 #endif // DIALOG_H

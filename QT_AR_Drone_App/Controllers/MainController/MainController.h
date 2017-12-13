@@ -7,6 +7,8 @@
 #include "../../Views/widget/widget.h"
 #include "../../Models/GeoMap/GeoMap.h"
 #include "../../Views/dialog/dialog.h"
+#include "../../Views/inputError/inputerror.h"
+#include "../../Views/serverConnectionError/serverConnectionError.h"
 
 #include <QTimer> // timer
 #include <QObject> // someware else included
@@ -28,9 +30,9 @@ private:
     double minTemperature = 0;
     double maxTemperature = 0;
 
-    void setOnlineMode();
+    bool setOnlineMode(); // if server is not started - return false
     void setOfflineMode();
-    void getDataFromDialog();
+    bool getDataFromDialog();
 
 public:
     MainController(const int&); // doesn't work if I call constructor without parameters MainController() (the base class

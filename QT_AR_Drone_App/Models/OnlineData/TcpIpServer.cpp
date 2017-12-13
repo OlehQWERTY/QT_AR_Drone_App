@@ -11,8 +11,10 @@ MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
 
     if(!mTcpServer->listen(QHostAddress::Any, 255)){
         qDebug() << "server is not started";
+        connectedFlag = false; // is not connected
     } else {
         qDebug() << "server is started";
+        connectedFlag = true; //
     }
 }
 
@@ -55,4 +57,9 @@ int MyTcpServer::getLastData() const
 {
 //    qDebug() << "getLastData() sensor val: " << lastReceivedData;
     return lastReceivedData;
+}
+
+bool MyTcpServer::isLaunched() const
+{
+    return connectedFlag;
 }

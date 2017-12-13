@@ -246,11 +246,11 @@ void Widget::screenInfo()
                 renderText(550, vertTextPos + 140, QString::number(255 - Points.at(numbHighlightedPoint).color[1] - 1) + " / 255");
             }
             // odometry of current point
-            renderText(550, vertTextPos - 500, QString::number(Points.at(numbHighlightedPoint).cartesianX));
+            renderText(550, vertTextPos - 500, QString::number(Points.at(numbHighlightedPoint).cartesianX) + "m");
             renderText(520, vertTextPos - 500, "X: ");
-            renderText(550, vertTextPos - 480, QString::number(Points.at(numbHighlightedPoint).cartesianY));
+            renderText(550, vertTextPos - 480, QString::number(Points.at(numbHighlightedPoint).cartesianY) + "m");
             renderText(520, vertTextPos - 480, "Y: ");
-            renderText(550, vertTextPos - 460, QString::number(Points.at(numbHighlightedPoint).cartesianZ));
+            renderText(550, vertTextPos - 460, QString::number(Points.at(numbHighlightedPoint).cartesianZ) + "m");
             renderText(520, vertTextPos - 460, "Z: ");
         }
     }

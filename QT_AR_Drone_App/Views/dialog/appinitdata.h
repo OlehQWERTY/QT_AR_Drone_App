@@ -7,6 +7,7 @@
 
 struct AppInitData
 {
+    bool errorFlag = true; // in case of wrong data in dialog form it fill this field with true (default val == true - error)
     bool mode = false; // default - offline mode
     // geo coordinates
     double latitude = 0;

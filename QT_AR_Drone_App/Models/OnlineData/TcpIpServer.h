@@ -12,7 +12,8 @@ class MyTcpServer : public QObject
     Q_OBJECT
 public:
     explicit MyTcpServer(QObject *parent = 0);
-    int getLastData() const;
+    int getLastData() const; // return last received value
+    bool isLaunched() const; // return true in case of server is started
 
 public slots:
     void slotNewConnection();
@@ -21,6 +22,7 @@ public slots:
 
 private:
     int lastReceivedData = 0;
+    bool connectedFlag = false;
 
     QTcpServer * mTcpServer;
     QTcpSocket * mTcpSocket;

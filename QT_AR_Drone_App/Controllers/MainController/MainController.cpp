@@ -2,7 +2,7 @@
 
 MainController::MainController(int const &notused)
 {
-    qDebug() << "MainController";
+    //qDebug() << "MainController";
     UDialog = new Dialog;
     userDialogInit();
 
@@ -18,24 +18,47 @@ void MainController::initApp(/*bool online = true*/) // bool online
     minTemperature = AppData.minT;
     maxTemperature = AppData.maxT;
 
+    qDebug() << "Online.isLaunched(): " << Online.isLaunched();
     if(AppData.mode)
     {
+
         setOnlineMode();
     }
     else
     {
-        setFileName(AppData.fileName); // test + add cheaking correction
+        setFileName(AppData.fileName);
         setOfflineMode();
     }
 }
 
-void MainController::setOnlineMode() // connected with OnlineData
+bool MainController::setOnlineMode() // connected with OnlineData
 {
+    // server start checking (if false error and you should restart app)
+    if(!Online.isLaunched())
+    {
+        serverConnectionError *ConnectionError;
+        ConnectionError = new serverConnectionError;
+        ConnectionError->setWindowTitle("Connection Error!");
+        ConnectionError->setWindowIcon(QIcon("errorico.ico")); // app icon
+        ConnectionError->show();
+        // close dialog form
+        UDialog->close(); // move it to more appropriate place
+        delete UDialog; // move it to more appropriate place
+
+        return false;
+    }
+    else
+    {
+        setOnlineMode(); // online mode normal start
+    }
+
     // timer
     tmr = new QTimer(this);
     tmr->setInterval(1000); // timer interval 1 sec
     connect(tmr, SIGNAL(timeout()), this, SLOT(updateTime()));
     tmr->start();
+
+    return true;
 }
 
 void MainController::setOfflineMode() // connected with GeoMap
@@ -47,9 +70,19 @@ void MainController::setOfflineMode() // connected with GeoMap
     OpenGLView.updateGL(); // update open GL scene
 }
 
-void MainController::getDataFromDialog()
+bool MainController::getDataFromDialog()
 {
     AppData = UDialog->returnAppData();
+    if(AppData.errorFlag)
+    {
+        inputError *Error;
+        Error = new inputError; // don't forget to delete it (if it is neaded because now user manualy close error message)
+        Error->setWindowTitle("Input Error!");
+        Error->setWindowIcon(QIcon("errorico.ico")); // app icon
+        Error->show();
+        return false; // user data is wrong
+    }
+    return true; // user data is correct
 }
 
 void MainController::setFileName(QString tempFileName)
@@ -118,13 +151,17 @@ void MainController::updateTime() // timer slot
 
 void MainController::userLunchedApp() // MainController gets signal Start Button clicked from dialog
 {
-    getDataFromDialog();
+    // getDataFromDialog - right input data
+    // ( (AppData.mode && setOnlineMode()) || !AppData.mode) - online mode + server was started
+    if(getDataFromDialog() && ( (AppData.mode && setOnlineMode()) || !AppData.mode) ) // wrong data was inputted in dialog form
+    {
+        initApp();
+        UDialog->close(); // move it to more appropriate place
+        delete UDialog; // move it to more appropriate place
 
-    initApp();
+        openGlViewInit(); // start widget (OpenGL view)
+    }
 
-    UDialog->close(); // move it to more appropriate place
-    delete UDialog; // move it to more appropriate place
 
-    openGlViewInit(); // start widget (OpenGL view)
     //qDebug() << "MainController get signal Start Button clicked from dialog!";
 }
