@@ -13,7 +13,7 @@ class MyTcpServer : public QObject
 public:
     explicit MyTcpServer(QObject *parent = 0);
     int getLastData() const; // return last received value
-    bool isLaunched() const; // return true in case of server is started
+    bool isLaunched() const; // return true in case of connection is done
 
 public slots:
     void slotNewConnection();

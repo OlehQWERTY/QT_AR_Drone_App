@@ -11,10 +11,8 @@ MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent)
 
     if(!mTcpServer->listen(QHostAddress::Any, 255)){
         qDebug() << "server is not started";
-        connectedFlag = false; // is not connected
     } else {
         qDebug() << "server is started";
-        connectedFlag = true; //
     }
 }
 
@@ -24,6 +22,7 @@ void MyTcpServer::slotNewConnection()
 
     mTcpSocket->write("New connection done!!! I am echo server!\r\n");
     qDebug() << "New connection done!!! I am echo server!";
+    connectedFlag = true; // connected
 
     connect(mTcpSocket, &QTcpSocket::readyRead, this, &MyTcpServer::slotServerRead);
     connect(mTcpSocket, &QTcpSocket::disconnected, this, &MyTcpServer::slotClientDisconnected);
@@ -50,6 +49,7 @@ void MyTcpServer::slotServerRead()
 
 void MyTcpServer::slotClientDisconnected()
 {
+    connectedFlag = false; // connection false
     mTcpSocket->close();
 }
 

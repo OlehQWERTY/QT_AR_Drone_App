@@ -9,7 +9,7 @@ MainController::MainController(int const &notused)
     connect(UDialog, SIGNAL(StartPressed()),this,SLOT(userLunchedApp())); // start (dialog.h) clicked - lunch View from widget.h
 }
 
-void MainController::initApp(/*bool online = true*/) // bool online
+void MainController::initApp()
 {
     getDataFromDialog(); // get data from dialog
     Online.setZeroGeoPoint(AppData.latitude, AppData.longitude);
@@ -21,7 +21,6 @@ void MainController::initApp(/*bool online = true*/) // bool online
     qDebug() << "Online.isLaunched(): " << Online.isLaunched();
     if(AppData.mode)
     {
-
         setOnlineMode();
     }
     else
@@ -33,7 +32,7 @@ void MainController::initApp(/*bool online = true*/) // bool online
 
 bool MainController::setOnlineMode() // connected with OnlineData
 {
-    // server start checking (if false error and you should restart app)
+    // checking of the connection (if false error and you should restart app)
     if(!Online.isLaunched())
     {
         serverConnectionError *ConnectionError;
@@ -47,10 +46,6 @@ bool MainController::setOnlineMode() // connected with OnlineData
 
         return false;
     }
-    else
-    {
-        setOnlineMode(); // online mode normal start
-    }
 
     // timer
     tmr = new QTimer(this);
@@ -58,7 +53,7 @@ bool MainController::setOnlineMode() // connected with OnlineData
     connect(tmr, SIGNAL(timeout()), this, SLOT(updateTime()));
     tmr->start();
 
-    return true;
+    return true; // online mode normal start
 }
 
 void MainController::setOfflineMode() // connected with GeoMap
@@ -141,7 +136,6 @@ void MainController::addPointFromOnlineData(const int &minTemperature, const int
 //    qDebug() << so2.id;
 }
 
-
 void MainController::updateTime() // timer slot
 {
     addPointFromOnlineData(minTemperature, maxTemperature);
@@ -161,7 +155,5 @@ void MainController::userLunchedApp() // MainController gets signal Start Button
 
         openGlViewInit(); // start widget (OpenGL view)
     }
-
-
     //qDebug() << "MainController get signal Start Button clicked from dialog!";
 }

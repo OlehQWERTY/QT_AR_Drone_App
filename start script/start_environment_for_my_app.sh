@@ -1,7 +1,10 @@
 #!/bin/bash
+
+#############################################################################################
+
 # connect to AR.Drone and start wifi script
 
-echo 'Connecting to ardrone2_114574...'
+echo -e "\x1b[32mConnecting to ardrone2_114574...\x1b[0m" # echo -e "\x1b[31mTest\x1b[0m" - Test red color 
 
 gnome-terminal -e "nmcli c up id 'ardrone2_114574'" --window-with-profile=NAMEOFTHEPROFILE #ardrone2_114574
 
@@ -9,33 +12,41 @@ sleep 4 # waiting for conection to ardrone
 
 echo "./data/wifi.sh" | telnet 192.168.1.1
 
+#############################################################################################
+
 #connect to ArDronePC
 
-echo 'Connecting to ArDronePC...'
+echo -e "\x1b[32mConnecting to ArDronePC...\x1b[0m"
 
 gnome-terminal -e "nmcli c up id 'ArDronePC'" --window-with-profile=NAMEOFTHEPROFILE #ardrone2_114574
 
 sleep 6 # waiting for conection to ardrone 
 
+#############################################################################################
+
 # roscore
 
-echo 'Starting roscore...'
+echo -e "\x1b[32mStarting roscore...\x1b[0m"
 
 gnome-terminal -e "/opt/ros/indigo/bin/roscore"  --window-with-profile=NAMEOFTHEPROFILE
 
 sleep 4 # waiting roscore launching
 
-# start arduino ide
+#############################################################################################
 
-echo 'Launching Arduino...'
+# start arduino ide (or next step)
 
-cd ~/arduino-1.8.3
+# echo 'Launching Arduino...'
 
-gnome-terminal -e "./arduino"  --window-with-profile=NAMEOFTHEPROFILE # I can't write ./arduino & exit - start with closing terminal (arduino still working)
+# cd ~/arduino-1.8.3
 
-#start ardrone_autonomy
+# gnome-terminal -e "./arduino"  --window-with-profile=NAMEOFTHEPROFILE # I can't write ./arduino & exit - start with closing terminal (arduino still working)
 
-read -p "Are you ready (make shure that you have launched arduino serial monitor)? " -n 1 -r
+#############################################################################################
+
+# simple YES or NO bash dialog
+
+read -p "Is led 13 blinking? Make shure that you have launched arduino serial monitor (if you chose another start option with arduino IDE). " -n 1 -r
 echo    # (optional) move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
@@ -43,17 +54,34 @@ then
 fi
 
 ls --all
+#############################################################################################
 
-echo 'Launching ardrone...'
+# init com betwen PC and Arduino (or previous step) (arduino doesn't want to start data sending before wired connection between PC and Arduino started)
+# || - i case if first command return error perform second command (&& - if first successful perform second ; - start bouth anyway)
+# /dev/ttyACM0 or /dev/ttyACM1 usual connection name for arduino
+
+echo -e "\x1b[32mConnection to ArduinoYun...\x1b[0m"
+
+stty -F /dev/ttyACM0 raw ispeed 115200 ospeed 115200 -ignpar cs8 -cstopb -echo || stty -F /dev/ttyACM1 raw ispeed 115200 ospeed 115200 -ignpar cs8 -cstopb -echo # connection parameters
+
+gnome-terminal -e "cat /dev/ttyACM0 || cat /dev/ttyACM1"  --window-with-profile=NAMEOFTHEPROFILE
+
+#############################################################################################
+
+#start ardrone_autonomy
+
+echo -e "\x1b[32mLaunching ardrone_autonomy...\x1b[0m"
+
 # script for launching ardrone_autonomy
 gnome-terminal -e "bash /home/oleg/QT_AR_Drone_App/start\ script/ardrone_autonomy_start.sh"  --window-with-profile=NAMEOFTHEPROFILE
 
 sleep 6
 
-# gnome-terminal -e "rosrun ardrone_autonomy ardrone_driver -ip 10.42.0.5"  --window-with-profile=NAMEOFTHEPROFILE
+#############################################################################################
 
 # Python script start
-echo 'Launching ardrone...'
+
+echo -e "\x1b[32mLaunching ardrone_odometry.py...\x1b[0m"
 
 cd ~/catkin_ws/src/test1/src
 
@@ -61,39 +89,25 @@ gnome-terminal -e "./ardrone_odometry.py"  --window-with-profile=NAMEOFTHEPROFIL
 
 sleep 3
 
-# my app start
-
-cd ~/git/QT_AR_Drone_App/build-QT_AR_Drone_App-Desktop-Debug/
-
-gnome-terminal -e "sudo ./QT_AR_Drone_App"  --window-with-profile=NAMEOFTHEPROFILE
+#############################################################################################
 
 # tum_ardrone start
 
-echo 'Launching ardrone...'
+echo -e "\x1b[32mLaunching tum_ardrone...\x1b[0m"
+
 # script for launching ardrone_autonomy
 gnome-terminal -e "bash /home/oleg/QT_AR_Drone_App/start\ script/tum_ardrone_start.sh"  --window-with-profile=NAMEOFTHEPROFILE
 
 sleep 4
 
+#############################################################################################
 
+# my app start
 
+echo -e "\x1b[32mMy app launching...\x1b[0m"
 
-# sleep 5
+cd ~/git/QT_AR_Drone_App/build-QT_AR_Drone_App-Desktop-Debug/
 
-# gnome-terminal -e "ls --all"  --window-with-profile=NAMEOFTHEPROFILE
+gnome-terminal -e "sudo ./QT_AR_Drone_App"  --window-with-profile=NAMEOFTHEPROFILE
 
-# sleep 5
-
-# gnome-terminal -e ls catckin_ws  --window-with-profile=NAMEOFTHEPROFILE
-
-# sleep 5
-
-# gnome-terminal --window-with-profile=NAMEOFTHEPROFILE -e "ls --all" 
-
-# nmcli c up id 'foxi'
-
-# sleep 5
-
-# nmcli c down id 'foxi'
-
-# nmcli c up id 'ArDronePC' # connect to ArDronePC wifi
+#############################################################################################
