@@ -1,5 +1,5 @@
 
-QT       += core gui opengl network
+QT += core gui opengl network multimedia
 
 TARGET = QT_AR_Drone_App
 TEMPLATE = app

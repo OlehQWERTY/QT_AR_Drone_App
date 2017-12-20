@@ -334,6 +334,7 @@ void Widget::drawPoint() const
         qglColor(pointColor); // set point color
         glBegin(GL_POINTS);
             //if(tempGeoPoint.cartesianZ > 0.2)
+        // -7 and - 12 it is correction for 1.json file
             glVertex3f((tempGeoPoint.cartesianX /*- 7*/) * cartesianScale + w / 2, (tempGeoPoint.cartesianY /*- 12*/) * cartesianScale + h/2,
                        tempGeoPoint.cartesianZ * cartesianScale); // w / 2 and h/2 set Zero position on the middle of grid
         glEnd();

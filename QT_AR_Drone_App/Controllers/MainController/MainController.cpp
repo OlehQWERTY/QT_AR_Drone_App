@@ -6,7 +6,7 @@ MainController::MainController(int const &notused)
     UDialog = new Dialog;
     userDialogInit();
 
-    connect(UDialog, SIGNAL(StartPressed()),this,SLOT(userLunchedApp())); // start (dialog.h) clicked - lunch View from widget.h
+    connect(UDialog, SIGNAL(StartPressed()),this,SLOT(userLaunchedApp())); // start (dialog.h) clicked - lunch View from widget.h
 }
 
 void MainController::initApp()
@@ -143,7 +143,7 @@ void MainController::updateTime() // timer slot
     OpenGLView.updateGL(); // update open GL scene
 }
 
-void MainController::userLunchedApp() // MainController gets signal Start Button clicked from dialog
+void MainController::userLaunchedApp() // MainController gets signal Start Button clicked from dialog
 {
     // getDataFromDialog - right input data
     // ( (AppData.mode && setOnlineMode()) || !AppData.mode) - online mode + server was started
@@ -154,6 +154,14 @@ void MainController::userLunchedApp() // MainController gets signal Start Button
         delete UDialog; // move it to more appropriate place
 
         openGlViewInit(); // start widget (OpenGL view)
+    }
+    else // error & play music
+    {
+        QMediaPlayer *player = new QMediaPlayer;
+        // fix: write normal path
+        player->setMedia(QUrl::fromLocalFile(("/home/oleg/git/QT_AR_Drone_App/build-QT_AR_Drone_App-Desktop-Debug/1.mp3")));
+        player->setVolume(50);
+        player->play();
     }
     //qDebug() << "MainController get signal Start Button clicked from dialog!";
 }

@@ -13,6 +13,10 @@
 #include <QTimer> // timer
 #include <QObject> // someware else included
 
+#include <QMediaPlayer> // mp3 player
+#include <QDir>
+#include <QUrl>
+
 class MainController : public QObject
 {
 private:
@@ -46,7 +50,7 @@ public:
 
 public slots:
     void updateTime(); // slot for timer
-    void userLunchedApp(); // slot subscribed to dialog start button clicked
+    void userLaunchedApp(); // slot subscribed to dialog start button clicked
 };
 
 #endif // MAINCONTROLLER_H
