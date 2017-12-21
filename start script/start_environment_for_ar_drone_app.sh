@@ -76,4 +76,14 @@ cd ~/git/QT_AR_Drone_App/build-QT_AR_Drone_App-Desktop-Debug/
 
 gnome-terminal -e "sudo ./QT_AR_Drone_App"  --window-with-profile=NAMEOFTHEPROFILE
 
+sleep 8
+
 #############################################################################################
+
+# firefox start Google API
+
+echo -e "\x1b[32mFirefox launching...\x1b[0m"
+
+cd ~/git/QT_AR_Drone_App/build-QT_AR_Drone_App-Desktop-Debug/Json/Google\ API
+
+gnome-terminal -e "firefox new_10_12_17.html"  --window-with-profile=NAMEOFTHEPROFILE
