@@ -8,5 +8,4 @@ Functionality of QT app:
 2) It visualises moving path and sensor data into 3d OpenGL scene.
 
 !!! ------------ start app from terminal with sudo ------------ !!!
-!!!Json should located at the same location that executable file!!!
-!!!ardrone_odometry.py script for ROS from test1 package!!!
+!!! ---ardrone_odometry.py script for ROS from test1 package--- !!!
